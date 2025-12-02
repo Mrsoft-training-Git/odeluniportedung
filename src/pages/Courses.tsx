@@ -13,8 +13,7 @@ const Courses = () => {
 
   const categories = [
     { value: "all", label: "All Programmes" },
-    { value: "short_course", label: "Short Courses" },
-    { value: "diploma", label: "Diploma" },
+    { value: "certificate_diploma", label: "Certificate/Diploma" },
     { value: "undergraduate", label: "Undergraduate" },
     { value: "postgraduate", label: "Postgraduate" },
   ];
@@ -23,16 +22,24 @@ const Courses = () => {
   const placeholderCourses = [
     {
       id: 1,
-      title: "Introduction to Digital Marketing",
-      category: "short_course",
-      duration: "3 months",
-      description: "Learn the fundamentals of digital marketing including SEO, social media marketing, and content strategy.",
+      title: "Data Science/Machine Learning",
+      category: "certificate_diploma",
+      duration: "6 months",
+      price: "₦150,000",
+      image: "/placeholder.svg",
+      enrolled: 0,
+      featured: true,
+      description: "Master data analysis, machine learning algorithms, and AI implementation.",
     },
     {
       id: 2,
       title: "Business Administration",
       category: "undergraduate",
       duration: "4 years",
+      price: "Contact for pricing",
+      image: "/placeholder.svg",
+      enrolled: 45,
+      featured: false,
       description: "Comprehensive undergraduate programme in business management and administration.",
     },
     {
@@ -40,7 +47,22 @@ const Courses = () => {
       title: "Educational Technology",
       category: "postgraduate",
       duration: "2 years",
+      price: "Contact for pricing",
+      image: "/placeholder.svg",
+      enrolled: 23,
+      featured: false,
       description: "Master's programme focusing on the integration of technology in educational settings.",
+    },
+    {
+      id: 4,
+      title: "Digital Marketing Certificate",
+      category: "certificate_diploma",
+      duration: "3 months",
+      price: "₦80,000",
+      image: "/placeholder.svg",
+      enrolled: 12,
+      featured: false,
+      description: "Learn digital marketing strategies, SEO, and social media management.",
     },
   ];
 
@@ -69,7 +91,7 @@ const Courses = () => {
         <section className="py-20 bg-background">
           <div className="container">
             <Tabs value={activeCategory} onValueChange={setActiveCategory} className="w-full">
-              <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-2 lg:grid-cols-5 mb-12">
+              <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-2 lg:grid-cols-4 mb-12">
                 {categories.map((cat) => (
                   <TabsTrigger key={cat.value} value={cat.value}>
                     {cat.label}
@@ -80,16 +102,56 @@ const Courses = () => {
               {categories.map((cat) => (
                 <TabsContent key={cat.value} value={cat.value}>
                   {filteredCourses.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                       {filteredCourses.map((course) => (
-                        <Card key={course.id} className="hover:shadow-lg transition-shadow">
-                          <CardHeader>
-                            <CardTitle>{course.title}</CardTitle>
-                            <p className="text-sm text-muted-foreground">Duration: {course.duration}</p>
-                          </CardHeader>
-                          <CardContent>
-                            <p className="text-sm text-muted-foreground mb-4">{course.description}</p>
-                            <Button className="w-full">View Details</Button>
+                        <Card key={course.id} className="group overflow-hidden hover:shadow-xl transition-all duration-300 border-0 bg-card">
+                          {/* Course Image */}
+                          <div className="relative h-48 overflow-hidden bg-muted">
+                            <img 
+                              src={course.image} 
+                              alt={course.title}
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                            />
+                            {course.featured && (
+                              <div className="absolute top-4 right-4 bg-background px-4 py-2 rounded-full shadow-lg">
+                                <span className="text-sm font-semibold text-foreground">Featured</span>
+                              </div>
+                            )}
+                          </div>
+
+                          <CardContent className="p-6 space-y-4">
+                            {/* Category Badge */}
+                            <div className="inline-block">
+                              <span className="px-4 py-1.5 bg-secondary/50 text-secondary-foreground rounded-full text-sm font-medium">
+                                {categories.find(c => c.value === course.category)?.label || course.category}
+                              </span>
+                            </div>
+
+                            {/* Course Title */}
+                            <h3 className="text-xl font-bold text-foreground line-clamp-2 min-h-[3.5rem]">
+                              {course.title}
+                            </h3>
+
+                            {/* Price and Enrollment */}
+                            <div className="flex items-center justify-between pt-2">
+                              <span className="text-2xl font-bold text-primary">{course.price}</span>
+                              <div className="flex items-center gap-2 text-muted-foreground">
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                                </svg>
+                                <span className="font-medium">{course.enrolled}</span>
+                              </div>
+                            </div>
+
+                            {/* Action Buttons */}
+                            <div className="flex gap-3 pt-4">
+                              <Button className="flex-1 font-semibold">
+                                Enroll Now
+                              </Button>
+                              <Button variant="outline" className="flex-1 font-semibold">
+                                View Details
+                              </Button>
+                            </div>
                           </CardContent>
                         </Card>
                       ))}
