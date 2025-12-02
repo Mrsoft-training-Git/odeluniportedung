@@ -7,7 +7,6 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Courses from "./pages/Courses";
 import Gallery from "./pages/Gallery";
-import News from "./pages/News";
 import Contact from "./pages/Contact";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -26,7 +25,6 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/gallery" element={<Gallery />} />
-          <Route path="/news" element={<News />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />

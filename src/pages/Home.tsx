@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeroSlider from "@/components/HeroSlider";
+import NewsCarousel from "@/components/NewsCarousel";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { GraduationCap, BookOpen, Users, Award } from "lucide-react";
@@ -122,21 +123,17 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Latest News Preview */}
+        {/* Latest News */}
         <section className="py-20 bg-background">
           <div className="container">
             <div className="text-center space-y-4 mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold">Latest News & Events</h2>
+              <h2 className="text-3xl md:text-4xl font-bold">Latest News</h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Stay updated with the latest happenings at ODEL UniPort
               </p>
             </div>
 
-            <div className="text-center">
-              <Button asChild size="lg">
-                <Link to="/news">View All News</Link>
-              </Button>
-            </div>
+            <NewsCarousel />
           </div>
         </section>
       </main>
