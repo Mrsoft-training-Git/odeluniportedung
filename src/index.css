@@ -8,7 +8,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* UNIPORT Brand Colors - Green, Blue & White */
+    /* UNIPORT Brand Colors - Blue Primary, Green Accent & White */
     --background: 0 0% 100%;
     --foreground: 220 40% 20%;
 
@@ -18,15 +18,16 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 220 40% 20%;
 
-    /* Primary: UNIPORT Green */
-    --primary: 150 100% 29%;
+    /* Primary: UNIPORT Navy Blue (Gradient-friendly) */
+    --primary: 235 55% 35%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 150 100% 25%;
+    --primary-hover: 235 55% 30%;
+    --primary-light: 235 55% 45%;
 
-    /* Secondary: UNIPORT Navy Blue */
-    --secondary: 235 55% 35%;
+    /* Secondary: UNIPORT Green */
+    --secondary: 150 100% 29%;
     --secondary-foreground: 0 0% 100%;
-    --secondary-hover: 235 55% 30%;
+    --secondary-hover: 150 100% 25%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215 16% 47%;
@@ -45,9 +46,9 @@ All colors MUST be HSL.
     --radius: 0.75rem;
 
     /* Custom design tokens */
-    --gradient-hero: linear-gradient(135deg, hsl(150 100% 29%) 0%, hsl(235 55% 35%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(190 80% 50%) 0%, hsl(150 100% 29%) 100%);
-    --shadow-elevated: 0 10px 40px -10px hsl(150 100% 29% / 0.2);
+    --gradient-hero: linear-gradient(135deg, hsl(235 55% 35%) 0%, hsl(235 55% 50%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(190 80% 50%) 0%, hsl(235 55% 35%) 100%);
+    --shadow-elevated: 0 10px 40px -10px hsl(235 55% 35% / 0.2);
     --shadow-card: 0 4px 12px -2px hsl(0 0% 0% / 0.08);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
@@ -78,13 +79,14 @@ All colors MUST be HSL.
     --popover: 217 33% 13%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 150 100% 35%;
+    --primary: 235 55% 40%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 150 100% 40%;
+    --primary-hover: 235 55% 45%;
+    --primary-light: 235 55% 50%;
 
-    --secondary: 235 55% 40%;
+    --secondary: 150 100% 35%;
     --secondary-foreground: 0 0% 100%;
-    --secondary-hover: 235 55% 45%;
+    --secondary-hover: 150 100% 40%;
 
     --muted: 217 33% 20%;
     --muted-foreground: 215 20% 65%;
