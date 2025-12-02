@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Facebook, Twitter, Linkedin, Instagram, Mail, Phone, MapPin } from "lucide-react";
+import uniportLogo from "@/assets/uniport-logo.png";
 
 const Footer = () => {
   return (
@@ -8,7 +9,14 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* About Section */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">ODEL UniPort</h3>
+            <div className="flex items-center space-x-2 mb-4">
+              <img 
+                src={uniportLogo} 
+                alt="UNIPORT Logo" 
+                className="h-10 w-10 object-contain"
+              />
+              <h3 className="text-lg font-semibold">ODEL UniPort</h3>
+            </div>
             <p className="text-sm text-muted-foreground mb-4">
               Providing lifelong learning through quality teaching, research and innovation at the University of Port Harcourt.
             </p>

@@ -8,31 +8,31 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* ODEL Brand Colors - Blue & Green Academic Theme */
+    /* UNIPORT Brand Colors - Green, Blue & White */
     --background: 0 0% 100%;
-    --foreground: 217 33% 17%;
+    --foreground: 220 40% 20%;
 
     --card: 0 0% 100%;
-    --card-foreground: 217 33% 17%;
+    --card-foreground: 220 40% 20%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 217 33% 17%;
+    --popover-foreground: 220 40% 20%;
 
-    /* Primary: Deep Academic Blue */
-    --primary: 221 83% 53%;
+    /* Primary: UNIPORT Green */
+    --primary: 150 100% 29%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 221 83% 45%;
+    --primary-hover: 150 100% 25%;
 
-    /* Secondary: Fresh Green */
-    --secondary: 142 76% 36%;
+    /* Secondary: UNIPORT Navy Blue */
+    --secondary: 235 55% 35%;
     --secondary-foreground: 0 0% 100%;
-    --secondary-hover: 142 76% 30%;
+    --secondary-hover: 235 55% 30%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215 16% 47%;
 
-    /* Accent: Lighter Blue */
-    --accent: 199 89% 48%;
+    /* Accent: UNIPORT Cyan */
+    --accent: 190 80% 50%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
@@ -45,9 +45,9 @@ All colors MUST be HSL.
     --radius: 0.75rem;
 
     /* Custom design tokens */
-    --gradient-hero: linear-gradient(135deg, hsl(221 83% 53%) 0%, hsl(199 89% 48%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(142 76% 36%) 0%, hsl(142 76% 45%) 100%);
-    --shadow-elevated: 0 10px 40px -10px hsl(221 83% 53% / 0.2);
+    --gradient-hero: linear-gradient(135deg, hsl(150 100% 29%) 0%, hsl(235 55% 35%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(190 80% 50%) 0%, hsl(150 100% 29%) 100%);
+    --shadow-elevated: 0 10px 40px -10px hsl(150 100% 29% / 0.2);
     --shadow-card: 0 4px 12px -2px hsl(0 0% 0% / 0.08);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
@@ -78,18 +78,18 @@ All colors MUST be HSL.
     --popover: 217 33% 13%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 221 83% 53%;
+    --primary: 150 100% 35%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 221 83% 60%;
+    --primary-hover: 150 100% 40%;
 
-    --secondary: 142 76% 36%;
+    --secondary: 235 55% 40%;
     --secondary-foreground: 0 0% 100%;
-    --secondary-hover: 142 76% 42%;
+    --secondary-hover: 235 55% 45%;
 
     --muted: 217 33% 20%;
     --muted-foreground: 215 20% 65%;
 
-    --accent: 199 89% 48%;
+    --accent: 190 80% 55%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 63% 31%;
@@ -119,5 +119,19 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* 3D Card Flip Utilities */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .transform-style-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
 }
