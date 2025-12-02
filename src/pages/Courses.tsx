@@ -5,6 +5,10 @@ import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import dataScience from "@/assets/course-data-science.jpg";
+import business from "@/assets/course-business.jpg";
+import edtech from "@/assets/course-edtech.jpg";
+import marketing from "@/assets/course-marketing.jpg";
 
 const Courses = () => {
   const [searchParams] = useSearchParams();
@@ -26,7 +30,7 @@ const Courses = () => {
       category: "certificate_diploma",
       duration: "6 months",
       price: "₦150,000",
-      image: "/placeholder.svg",
+      image: dataScience,
       enrolled: 0,
       featured: true,
       description: "Master data analysis, machine learning algorithms, and AI implementation.",
@@ -37,7 +41,7 @@ const Courses = () => {
       category: "undergraduate",
       duration: "4 years",
       price: "Contact for pricing",
-      image: "/placeholder.svg",
+      image: business,
       enrolled: 45,
       featured: false,
       description: "Comprehensive undergraduate programme in business management and administration.",
@@ -48,7 +52,7 @@ const Courses = () => {
       category: "postgraduate",
       duration: "2 years",
       price: "Contact for pricing",
-      image: "/placeholder.svg",
+      image: edtech,
       enrolled: 23,
       featured: false,
       description: "Master's programme focusing on the integration of technology in educational settings.",
@@ -59,7 +63,7 @@ const Courses = () => {
       category: "certificate_diploma",
       duration: "3 months",
       price: "₦80,000",
-      image: "/placeholder.svg",
+      image: marketing,
       enrolled: 12,
       featured: false,
       description: "Learn digital marketing strategies, SEO, and social media management.",
