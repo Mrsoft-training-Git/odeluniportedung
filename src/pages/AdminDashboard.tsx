@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, BookOpen, Image, FileText, LogOut } from "lucide-react";
+import { Users, BookOpen, Image, FileText, LogOut, Settings } from "lucide-react";
 import { toast } from "sonner";
 
 const AdminDashboard = () => {
@@ -134,6 +134,21 @@ const AdminDashboard = () => {
                 Create and publish news articles and announcements
               </p>
               <Button className="w-full">Go to News</Button>
+            </CardContent>
+          </Card>
+
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate("/admin/settings")}>
+            <CardHeader>
+              <div className="h-12 w-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-4">
+                <Settings className="h-6 w-6 text-primary-foreground" />
+              </div>
+              <CardTitle>Site Settings</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">
+                Configure LMS portal links and site-wide settings
+              </p>
+              <Button className="w-full">Go to Settings</Button>
             </CardContent>
           </Card>
         </div>
