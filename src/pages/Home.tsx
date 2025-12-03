@@ -5,26 +5,23 @@ import HeroSlider from "@/components/HeroSlider";
 import NewsCarousel from "@/components/NewsCarousel";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { GraduationCap, BookOpen, Users, Award } from "lucide-react";
+import { GraduationCap, BookOpen, Award } from "lucide-react";
+import { useLmsSettings } from "@/hooks/useLmsSettings";
 
 const Home = () => {
+  const { data: lmsSettings } = useLmsSettings();
+
   const courseCategories = [
     {
-      title: "Short Courses",
-      description: "3-month certificate programmes for skill development",
+      title: "Certificate/Diploma",
+      description: "Professional certificate and diploma programmes",
       icon: BookOpen,
-      link: "/courses?category=short_course",
-    },
-    {
-      title: "Diploma Programmes",
-      description: "Professional diploma certifications",
-      icon: GraduationCap,
-      link: "/courses?category=diploma",
+      link: "/courses?category=certificate_diploma",
     },
     {
       title: "Undergraduate",
       description: "Bachelor's degree programmes",
-      icon: Users,
+      icon: GraduationCap,
       link: "/courses?category=undergraduate",
     },
     {
@@ -70,7 +67,7 @@ const Home = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {courseCategories.map((category) => {
                 const Icon = category.icon;
                 return (
@@ -101,22 +98,42 @@ const Home = () => {
           <div className="container">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               <div className="text-center p-8 bg-white/10 backdrop-blur-sm rounded-lg">
-                <h3 className="text-2xl font-bold mb-4">Certificate/Diploma Programmes</h3>
+                <h3 className="text-2xl font-bold mb-4">Diploma & Short Courses</h3>
                 <p className="mb-6">
-                  Fast-track your career with our professional certificate and diploma programmes
+                  Access diploma and short course programmes through our dedicated LMS portal
                 </p>
-                <Button variant="secondary" size="lg">
-                  View Programmes
+                <Button 
+                  variant="secondary" 
+                  size="lg" 
+                  asChild
+                >
+                  <a 
+                    href={lmsSettings?.diplomaShortCourses || "https://lms.odel.uniport.edu.ng/#/home"} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    Go to Portal
+                  </a>
                 </Button>
               </div>
 
               <div className="text-center p-8 bg-white/10 backdrop-blur-sm rounded-lg">
-                <h3 className="text-2xl font-bold mb-4">Student Portal</h3>
+                <h3 className="text-2xl font-bold mb-4">Undergraduate & Postgraduate</h3>
                 <p className="mb-6">
-                  Access your learning management system and course materials
+                  Access degree programmes through our main learning management system
                 </p>
-                <Button variant="secondary" size="lg">
-                  Go to Portal
+                <Button 
+                  variant="secondary" 
+                  size="lg"
+                  asChild
+                >
+                  <a 
+                    href={lmsSettings?.undergraduatePostgraduate || "https://odeluniport.com/"} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    Go to Portal
+                  </a>
                 </Button>
               </div>
             </div>
