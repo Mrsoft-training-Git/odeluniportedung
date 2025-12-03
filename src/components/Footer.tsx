@@ -1,20 +1,14 @@
 import { Link } from "react-router-dom";
 import { Facebook, Twitter, Linkedin, Instagram, Mail, Phone, MapPin } from "lucide-react";
 import uniportLogo from "@/assets/uniport-logo.png";
-
 const Footer = () => {
-  return (
-    <footer className="bg-card border-t border-border">
+  return <footer className="bg-card border-t border-border">
       <div className="container py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* About Section */}
           <div>
             <div className="flex items-center space-x-2 mb-4">
-              <img 
-                src={uniportLogo} 
-                alt="UNIPORT Logo" 
-                className="h-10 w-10 object-contain"
-              />
+              <img src={uniportLogo} alt="UNIPORT Logo" className="h-10 w-10 object-contain" />
               <h3 className="text-lg font-semibold">ODEL UniPort</h3>
             </div>
             <p className="text-sm text-muted-foreground mb-4">
@@ -49,15 +43,7 @@ const Footer = () => {
           </div>
 
           {/* Programmes */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Programmes</h3>
-            <ul className="space-y-2">
-              <li><Link to="/courses?category=short_course" className="text-sm text-muted-foreground hover:text-primary transition-colors">Short Courses</Link></li>
-              <li><Link to="/courses?category=diploma" className="text-sm text-muted-foreground hover:text-primary transition-colors">Diploma Programmes</Link></li>
-              <li><Link to="/courses?category=undergraduate" className="text-sm text-muted-foreground hover:text-primary transition-colors">Undergraduate</Link></li>
-              <li><Link to="/courses?category=postgraduate" className="text-sm text-muted-foreground hover:text-primary transition-colors">Postgraduate</Link></li>
-            </ul>
-          </div>
+          
 
           {/* Contact Info */}
           <div>
@@ -87,8 +73,6 @@ const Footer = () => {
           </p>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;
