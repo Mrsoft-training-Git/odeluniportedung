@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Menu, X, GraduationCap, BookOpen } from "lucide-react";
+import { Menu, X, GraduationCap, BookOpen, Library } from "lucide-react";
 import { useState } from "react";
 import uniportLogo from "@/assets/uniport-logo.png";
 import { useLmsSettings } from "@/hooks/useLmsSettings";
@@ -42,6 +42,17 @@ const Header = () => {
               {link.label}
             </Link>)}
           
+          <a 
+            href="https://www.library.uniport.edu.ng/" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+            title="UniPort Library"
+          >
+            <Library className="h-4 w-4" />
+            <span>Library</span>
+          </a>
+          
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               
@@ -75,6 +86,15 @@ const Header = () => {
             {navLinks.map(link => <Link key={link.to} to={link.to} onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2">
                 {link.label}
               </Link>)}
+            <a 
+              href="https://www.library.uniport.edu.ng/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="flex items-center text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2"
+            >
+              <Library className="mr-2 h-4 w-4" />
+              Library
+            </a>
             <div className="pt-2 border-t border-border">
               <p className="text-xs text-muted-foreground mb-2">Student Portal</p>
               <a href={lmsSettings?.diplomaShortCourses || "https://lms.odel.uniport.edu.ng/#/home"} target="_blank" rel="noopener noreferrer" className="flex items-center text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2">
