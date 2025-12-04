@@ -25,7 +25,7 @@ const Courses = () => {
   const [searchParams] = useSearchParams();
   const categoryParam = searchParams.get("category");
   const [activeCategory, setActiveCategory] = useState(categoryParam || "all");
-  const [flippedCards, setFlippedCards] = useState<Set<string>>(new Set());
+  const [flippedCard, setFlippedCard] = useState<string | null>(null);
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -68,15 +68,7 @@ const Courses = () => {
     : courses.filter(course => course.category === activeCategory);
 
   const toggleFlip = (courseId: string) => {
-    setFlippedCards(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(courseId)) {
-        newSet.delete(courseId);
-      } else {
-        newSet.add(courseId);
-      }
-      return newSet;
-    });
+    setFlippedCard(prev => prev === courseId ? null : courseId);
   };
 
   const downloadQRCode = (courseId: string, courseTitle: string) => {
@@ -139,67 +131,68 @@ const Courses = () => {
                 {categories.map((cat) => (
                   <TabsContent key={cat.value} value={cat.value}>
                     {filteredCourses.length > 0 ? (
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                         {filteredCourses.map((course) => (
-                          <div key={course.id} className="perspective-1000">
+                          <div key={course.id} className="perspective-1000 h-[340px]">
                             <div
-                              className={`relative w-full transition-transform duration-700 transform-style-3d ${
-                                flippedCards.has(course.id) ? "[transform:rotateY(180deg)]" : ""
+                              className={`relative w-full h-full transition-transform duration-500 transform-style-3d ${
+                                flippedCard === course.id ? "[transform:rotateY(180deg)]" : ""
                               }`}
                               style={{ transformStyle: "preserve-3d" }}
                             >
                               {/* Front of Card */}
-                              <Card className="group overflow-hidden hover:shadow-xl transition-all duration-300 border-0 bg-card backface-hidden">
-                                <div className="relative h-48 overflow-hidden bg-muted">
+                              <Card className="absolute inset-0 group overflow-hidden hover:shadow-lg transition-all duration-300 border border-border/50 bg-card backface-hidden" style={{ backfaceVisibility: "hidden" }}>
+                                <div className="relative h-32 overflow-hidden bg-muted">
                                   {course.image_url ? (
                                     <img 
                                       src={course.image_url} 
                                       alt={course.title}
-                                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                                     />
                                   ) : (
-                                    <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-                                      No image available
+                                    <div className="w-full h-full flex items-center justify-center text-muted-foreground text-sm">
+                                      No image
                                     </div>
                                   )}
-                                </div>
-
-                                <CardContent className="p-6 space-y-4">
-                                  <div className="inline-block">
-                                    <span className="px-4 py-1.5 bg-secondary/10 text-secondary rounded-full text-sm font-medium">
+                                  <div className="absolute top-2 left-2">
+                                    <span className="px-2 py-1 bg-primary/90 text-primary-foreground rounded text-xs font-medium">
                                       {categories.find(c => c.value === course.category)?.label || course.category}
                                     </span>
                                   </div>
+                                </div>
 
-                                  <h3 className="text-xl font-bold text-foreground line-clamp-2 min-h-[3.5rem]">
+                                <CardContent className="p-4 space-y-2">
+                                  <h3 className="text-sm font-semibold text-foreground line-clamp-2 leading-tight min-h-[2.5rem]">
                                     {course.title}
                                   </h3>
 
-                                  <p className="text-muted-foreground text-sm line-clamp-3 min-h-[4rem]">
+                                  <p className="text-muted-foreground text-xs line-clamp-2 min-h-[2rem]">
                                     {course.description}
                                   </p>
 
-                                  <div className="flex items-center gap-2 text-muted-foreground pt-2">
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <div className="flex items-center gap-1.5 text-muted-foreground text-xs">
+                                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                     <span className="font-medium">{course.duration}</span>
                                   </div>
 
-                                  <div className="flex gap-3 pt-4">
+                                  <div className="flex gap-2 pt-2">
                                     <Button 
-                                      className="flex-1 font-semibold"
+                                      size="sm"
+                                      className="flex-1 text-xs h-8"
                                       onClick={() => course.lms_url && window.open(course.lms_url, '_blank')}
                                       disabled={!course.lms_url}
                                     >
-                                      Enroll Now
+                                      Enroll
                                     </Button>
                                     <Button 
                                       variant="outline" 
-                                      className="flex-1 font-semibold"
+                                      size="sm"
+                                      className="flex-1 text-xs h-8"
                                       onClick={() => toggleFlip(course.id)}
                                     >
-                                      View Details
+                                      Details
                                     </Button>
                                   </div>
                                 </CardContent>
@@ -207,11 +200,11 @@ const Courses = () => {
 
                               {/* Back of Card */}
                               <Card 
-                                className="absolute inset-0 bg-card border-0 shadow-xl backface-hidden [transform:rotateY(180deg)]"
+                                className="absolute inset-0 bg-card border border-border/50 shadow-lg backface-hidden [transform:rotateY(180deg)]"
                                 style={{ backfaceVisibility: "hidden" }}
                               >
-                                <CardContent className="p-6 h-full flex flex-col items-center justify-center space-y-6">
-                                  <h3 className="text-xl font-bold text-center text-foreground">
+                                <CardContent className="p-4 h-full flex flex-col items-center justify-center space-y-3">
+                                  <h3 className="text-sm font-semibold text-center text-foreground line-clamp-2">
                                     {course.title}
                                   </h3>
                                   
@@ -219,55 +212,59 @@ const Courses = () => {
                                     <>
                                       <div 
                                         id={`qr-${course.id}`}
-                                        className="bg-white p-4 rounded-lg shadow-inner"
+                                        className="bg-white p-2 rounded-lg shadow-inner"
                                       >
                                         <QRCodeSVG 
                                           value={course.lms_url}
-                                          size={200}
+                                          size={120}
                                           level="H"
                                           includeMargin={true}
                                         />
                                       </div>
 
-                                      <p className="text-sm text-muted-foreground text-center">
-                                        Scan to access course on LMS
+                                      <p className="text-xs text-muted-foreground text-center">
+                                        Scan to access LMS
                                       </p>
 
-                                      <div className="flex flex-col gap-3 w-full">
+                                      <div className="flex flex-col gap-2 w-full">
                                         <Button 
-                                          className="w-full font-semibold"
+                                          size="sm"
+                                          className="w-full text-xs h-8"
                                           onClick={() => window.open(course.lms_url!, '_blank')}
                                         >
                                           Enroll Now
                                         </Button>
                                         <Button 
                                           variant="outline" 
-                                          className="w-full font-semibold"
+                                          size="sm"
+                                          className="w-full text-xs h-8"
                                           onClick={() => downloadQRCode(course.id, course.title)}
                                         >
-                                          <Download className="w-4 h-4 mr-2" />
-                                          Download QR Code
+                                          <Download className="w-3 h-3 mr-1" />
+                                          Download QR
                                         </Button>
                                         <Button 
                                           variant="ghost" 
-                                          className="w-full font-semibold"
+                                          size="sm"
+                                          className="w-full text-xs h-8"
                                           onClick={() => toggleFlip(course.id)}
                                         >
-                                          Back to Details
+                                          ← Back
                                         </Button>
                                       </div>
                                     </>
                                   ) : (
                                     <>
-                                      <p className="text-muted-foreground text-center">
-                                        LMS link not available yet
+                                      <p className="text-muted-foreground text-center text-xs">
+                                        LMS link not available
                                       </p>
                                       <Button 
                                         variant="ghost" 
-                                        className="w-full font-semibold"
+                                        size="sm"
+                                        className="w-full text-xs h-8"
                                         onClick={() => toggleFlip(course.id)}
                                       >
-                                        Back to Details
+                                        ← Back
                                       </Button>
                                     </>
                                   )}
