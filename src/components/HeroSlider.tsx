@@ -107,7 +107,7 @@ const HeroSlider = () => {
                     <Link to="/courses">Explore Courses</Link>
                   </Button>
                   <Button size="lg" variant="outline" className="text-lg bg-white/10 backdrop-blur-sm border-white text-white hover:bg-white hover:text-primary" asChild>
-                    <Link to="/contact">Apply Now</Link>
+                    <Link to="/courses">Apply Now</Link>
                   </Button>
                 </div>
               </div>
