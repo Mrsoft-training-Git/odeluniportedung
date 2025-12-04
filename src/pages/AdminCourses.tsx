@@ -15,6 +15,13 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   Table,
   TableBody,
   TableCell,
@@ -24,35 +31,44 @@ import {
 } from "@/components/ui/table";
 import { ArrowLeft, Plus, Pencil, Trash2, Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
-import { format } from "date-fns";
 import ImageUpload from "@/components/ImageUpload";
 
-interface NewsArticle {
+interface Course {
   id: string;
   title: string;
   slug: string;
-  excerpt: string;
-  content: string;
+  category: string;
+  description: string;
+  duration: string;
   image_url: string | null;
+  lms_url: string | null;
+  learning_outcomes: string[];
   is_published: boolean;
-  published_at: string | null;
   created_at: string;
 }
 
-const AdminNews = () => {
+const AdminCourses = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [news, setNews] = useState<NewsArticle[]>([]);
+  const [courses, setCourses] = useState<Course[]>([]);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [editingNews, setEditingNews] = useState<NewsArticle | null>(null);
+  const [editingCourse, setEditingCourse] = useState<Course | null>(null);
   const [formData, setFormData] = useState({
     title: "",
     slug: "",
-    excerpt: "",
-    content: "",
+    category: "certificate_diploma",
+    description: "",
+    duration: "",
     image_url: "",
+    lms_url: "",
     is_published: true,
   });
+
+  const categories = [
+    { value: "certificate_diploma", label: "Certificate/Diploma" },
+    { value: "undergraduate", label: "Undergraduate" },
+    { value: "postgraduate", label: "Postgraduate" },
+  ];
 
   useEffect(() => {
     checkAuthAndFetch();
@@ -64,21 +80,21 @@ const AdminNews = () => {
       navigate("/admin");
       return;
     }
-    fetchNews();
+    fetchCourses();
   };
 
-  const fetchNews = async () => {
+  const fetchCourses = async () => {
     try {
       const { data, error } = await supabase
-        .from("news_articles")
+        .from("courses")
         .select("*")
         .order("created_at", { ascending: false });
 
       if (error) throw error;
-      setNews(data || []);
+      setCourses(data || []);
     } catch (error) {
-      console.error("Error fetching news:", error);
-      toast.error("Failed to fetch news articles");
+      console.error("Error fetching courses:", error);
+      toast.error("Failed to fetch courses");
     } finally {
       setLoading(false);
     }
@@ -95,7 +111,7 @@ const AdminNews = () => {
     setFormData({
       ...formData,
       title,
-      slug: editingNews ? formData.slug : generateSlug(title),
+      slug: editingCourse ? formData.slug : generateSlug(title),
     });
   };
 
@@ -103,23 +119,27 @@ const AdminNews = () => {
     setFormData({
       title: "",
       slug: "",
-      excerpt: "",
-      content: "",
+      category: "certificate_diploma",
+      description: "",
+      duration: "",
       image_url: "",
+      lms_url: "",
       is_published: true,
     });
-    setEditingNews(null);
+    setEditingCourse(null);
   };
 
-  const handleEdit = (article: NewsArticle) => {
-    setEditingNews(article);
+  const handleEdit = (course: Course) => {
+    setEditingCourse(course);
     setFormData({
-      title: article.title,
-      slug: article.slug,
-      excerpt: article.excerpt,
-      content: article.content,
-      image_url: article.image_url || "",
-      is_published: article.is_published,
+      title: course.title,
+      slug: course.slug,
+      category: course.category,
+      description: course.description,
+      duration: course.duration,
+      image_url: course.image_url || "",
+      lms_url: course.lms_url || "",
+      is_published: course.is_published,
     });
     setDialogOpen(true);
   };
@@ -128,76 +148,75 @@ const AdminNews = () => {
     e.preventDefault();
     
     try {
-      const articleData = {
+      const courseData = {
         title: formData.title,
         slug: formData.slug,
-        excerpt: formData.excerpt,
-        content: formData.content,
+        category: formData.category,
+        description: formData.description,
+        duration: formData.duration,
         image_url: formData.image_url || null,
+        lms_url: formData.lms_url || null,
+        learning_outcomes: [],
         is_published: formData.is_published,
-        published_at: formData.is_published ? new Date().toISOString() : null,
       };
 
-      if (editingNews) {
+      if (editingCourse) {
         const { error } = await supabase
-          .from("news_articles")
-          .update(articleData)
-          .eq("id", editingNews.id);
+          .from("courses")
+          .update(courseData)
+          .eq("id", editingCourse.id);
 
         if (error) throw error;
-        toast.success("News article updated successfully");
+        toast.success("Course updated successfully");
       } else {
         const { error } = await supabase
-          .from("news_articles")
-          .insert([articleData]);
+          .from("courses")
+          .insert([courseData]);
 
         if (error) throw error;
-        toast.success("News article created successfully");
+        toast.success("Course created successfully");
       }
 
       setDialogOpen(false);
       resetForm();
-      fetchNews();
+      fetchCourses();
     } catch (error) {
-      console.error("Error saving news:", error);
-      toast.error("Failed to save news article");
+      console.error("Error saving course:", error);
+      toast.error("Failed to save course");
     }
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this article?")) return;
+    if (!confirm("Are you sure you want to delete this course?")) return;
 
     try {
       const { error } = await supabase
-        .from("news_articles")
+        .from("courses")
         .delete()
         .eq("id", id);
 
       if (error) throw error;
-      toast.success("News article deleted successfully");
-      fetchNews();
+      toast.success("Course deleted successfully");
+      fetchCourses();
     } catch (error) {
-      console.error("Error deleting news:", error);
-      toast.error("Failed to delete news article");
+      console.error("Error deleting course:", error);
+      toast.error("Failed to delete course");
     }
   };
 
-  const togglePublished = async (article: NewsArticle) => {
+  const togglePublished = async (course: Course) => {
     try {
       const { error } = await supabase
-        .from("news_articles")
-        .update({
-          is_published: !article.is_published,
-          published_at: !article.is_published ? new Date().toISOString() : null,
-        })
-        .eq("id", article.id);
+        .from("courses")
+        .update({ is_published: !course.is_published })
+        .eq("id", course.id);
 
       if (error) throw error;
-      toast.success(article.is_published ? "Article unpublished" : "Article published");
-      fetchNews();
+      toast.success(course.is_published ? "Course unpublished" : "Course published");
+      fetchCourses();
     } catch (error) {
       console.error("Error toggling publish status:", error);
-      toast.error("Failed to update article status");
+      toast.error("Failed to update course status");
     }
   };
 
@@ -219,8 +238,8 @@ const AdminNews = () => {
               Back to Dashboard
             </Button>
             <div>
-              <h1 className="text-lg font-bold">Manage News</h1>
-              <p className="text-xs text-muted-foreground">Create and manage news articles</p>
+              <h1 className="text-lg font-bold">Manage Courses</h1>
+              <p className="text-xs text-muted-foreground">Add, edit, and manage programmes</p>
             </div>
           </div>
 
@@ -231,16 +250,16 @@ const AdminNews = () => {
             <DialogTrigger asChild>
               <Button>
                 <Plus className="h-4 w-4 mr-2" />
-                Add Article
+                Add Course
               </Button>
             </DialogTrigger>
             <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
               <DialogHeader>
-                <DialogTitle>{editingNews ? "Edit Article" : "Create New Article"}</DialogTitle>
+                <DialogTitle>{editingCourse ? "Edit Course" : "Create New Course"}</DialogTitle>
               </DialogHeader>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="title">Title</Label>
+                  <Label htmlFor="title">Course Title</Label>
                   <Input
                     id="title"
                     value={formData.title}
@@ -260,23 +279,42 @@ const AdminNews = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="excerpt">Excerpt</Label>
+                  <Label htmlFor="category">Programme Type</Label>
+                  <Select
+                    value={formData.category}
+                    onValueChange={(value) => setFormData({ ...formData, category: value })}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select programme type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {categories.map((cat) => (
+                        <SelectItem key={cat.value} value={cat.value}>
+                          {cat.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="description">Description</Label>
                   <Textarea
-                    id="excerpt"
-                    value={formData.excerpt}
-                    onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
-                    rows={2}
+                    id="description"
+                    value={formData.description}
+                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                    rows={4}
                     required
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="content">Content</Label>
-                  <Textarea
-                    id="content"
-                    value={formData.content}
-                    onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                    rows={6}
+                  <Label htmlFor="duration">Duration</Label>
+                  <Input
+                    id="duration"
+                    value={formData.duration}
+                    onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
+                    placeholder="e.g., 3 months, 4 years"
                     required
                   />
                 </div>
@@ -284,9 +322,20 @@ const AdminNews = () => {
                 <ImageUpload
                   value={formData.image_url}
                   onChange={(url) => setFormData({ ...formData, image_url: url })}
-                  folder="news"
-                  label="Article Image"
+                  folder="courses"
+                  label="Course Image"
                 />
+
+                <div className="space-y-2">
+                  <Label htmlFor="lms_url">LMS URL (optional)</Label>
+                  <Input
+                    id="lms_url"
+                    type="url"
+                    value={formData.lms_url}
+                    onChange={(e) => setFormData({ ...formData, lms_url: e.target.value })}
+                    placeholder="https://lms.example.com/course"
+                  />
+                </div>
 
                 <div className="flex items-center space-x-2">
                   <Switch
@@ -301,7 +350,7 @@ const AdminNews = () => {
                   <Button type="button" variant="outline" onClick={() => { setDialogOpen(false); resetForm(); }}>
                     Cancel
                   </Button>
-                  <Button type="submit">{editingNews ? "Update" : "Create"}</Button>
+                  <Button type="submit">{editingCourse ? "Update" : "Create"}</Button>
                 </div>
               </form>
             </DialogContent>
@@ -312,12 +361,12 @@ const AdminNews = () => {
       <main className="container py-8">
         <Card>
           <CardHeader>
-            <CardTitle>News Articles ({news.length})</CardTitle>
+            <CardTitle>Courses ({courses.length})</CardTitle>
           </CardHeader>
           <CardContent>
-            {news.length === 0 ? (
+            {courses.length === 0 ? (
               <p className="text-center text-muted-foreground py-8">
-                No news articles yet. Click "Add Article" to create one.
+                No courses yet. Click "Add Course" to create one.
               </p>
             ) : (
               <Table>
@@ -325,45 +374,47 @@ const AdminNews = () => {
                   <TableRow>
                     <TableHead>Image</TableHead>
                     <TableHead>Title</TableHead>
+                    <TableHead>Category</TableHead>
+                    <TableHead>Duration</TableHead>
                     <TableHead>Status</TableHead>
-                    <TableHead>Published</TableHead>
                     <TableHead className="text-right">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {news.map((article) => (
-                    <TableRow key={article.id}>
+                  {courses.map((course) => (
+                    <TableRow key={course.id}>
                       <TableCell>
-                        {article.image_url ? (
-                          <img src={article.image_url} alt={article.title} className="w-16 h-12 object-cover rounded" />
+                        {course.image_url ? (
+                          <img src={course.image_url} alt={course.title} className="w-16 h-12 object-cover rounded" />
                         ) : (
                           <div className="w-16 h-12 bg-muted rounded flex items-center justify-center text-xs text-muted-foreground">
                             No image
                           </div>
                         )}
                       </TableCell>
-                      <TableCell className="font-medium max-w-xs truncate">{article.title}</TableCell>
+                      <TableCell className="font-medium max-w-xs truncate">{course.title}</TableCell>
+                      <TableCell>
+                        {categories.find(c => c.value === course.category)?.label || course.category}
+                      </TableCell>
+                      <TableCell>{course.duration}</TableCell>
                       <TableCell>
                         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                          article.is_published
+                          course.is_published
                             ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
                             : "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
                         }`}>
-                          {article.is_published ? "Published" : "Draft"}
+                          {course.is_published ? "Published" : "Draft"}
                         </span>
-                      </TableCell>
-                      <TableCell>
-                        {article.published_at ? format(new Date(article.published_at), "MMM d, yyyy") : "-"}
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="flex justify-end gap-2">
-                          <Button variant="ghost" size="icon" onClick={() => togglePublished(article)} title={article.is_published ? "Unpublish" : "Publish"}>
-                            {article.is_published ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                          <Button variant="ghost" size="icon" onClick={() => togglePublished(course)} title={course.is_published ? "Unpublish" : "Publish"}>
+                            {course.is_published ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                           </Button>
-                          <Button variant="ghost" size="icon" onClick={() => handleEdit(article)}>
+                          <Button variant="ghost" size="icon" onClick={() => handleEdit(course)}>
                             <Pencil className="h-4 w-4" />
                           </Button>
-                          <Button variant="ghost" size="icon" onClick={() => handleDelete(article.id)} className="text-destructive hover:text-destructive">
+                          <Button variant="ghost" size="icon" onClick={() => handleDelete(course.id)} className="text-destructive hover:text-destructive">
                             <Trash2 className="h-4 w-4" />
                           </Button>
                         </div>
@@ -380,4 +431,4 @@ const AdminNews = () => {
   );
 };
 
-export default AdminNews;
+export default AdminCourses;
