@@ -99,7 +99,7 @@ const HeroSlider = () => {
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
                   {slide.title}
                 </h1>
-                <p className="text-xl md:text-2xl text-white/90">
+                <p className="text-xl md:text-2xl text-white/90 pl-1">
                   {slide.subtitle}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -131,7 +131,7 @@ const HeroSlider = () => {
       </button>
 
       {/* Slide Indicators */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-2">
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
         {slides.map((_, index) => (
           <button
             key={index}
