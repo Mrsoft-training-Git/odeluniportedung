@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, BookOpen, Image, FileText, LogOut, Settings, Layers } from "lucide-react";
 import { toast } from "sonner";
+import uniportLogo from "@/assets/uniport-logo-crest.png";
 
 interface Stats {
   courses: number;
@@ -122,15 +123,13 @@ const AdminDashboard = () => {
     <div className="min-h-screen bg-background">
       <header className="border-b border-border bg-card">
         <div className="container flex h-16 items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-              <span className="text-lg font-bold text-primary-foreground">O</span>
-            </div>
+          <Link to="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
+            <img src={uniportLogo} alt="UNIPORT Logo" className="h-10 w-10 object-contain" />
             <div>
               <h1 className="text-lg font-bold">ODEL Admin</h1>
               <p className="text-xs text-muted-foreground">Content Management System</p>
             </div>
-          </div>
+          </Link>
           <Button onClick={handleLogout} variant="ghost" size="sm">
             <LogOut className="h-4 w-4 mr-2" />
             Logout
