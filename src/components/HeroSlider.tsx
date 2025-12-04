@@ -125,7 +125,7 @@ const HeroSlider = () => {
       </button>
       <button
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm p-3 rounded-full text-white hover:bg-white/30 transition-all"
+        className="absolute right-4 top-1/2 -translate-y-1/2 bg-transparent p-3 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all"
       >
         <ChevronRight className="h-6 w-6" />
       </button>
