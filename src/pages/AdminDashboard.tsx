@@ -6,12 +6,63 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, BookOpen, Image, FileText, LogOut, Settings } from "lucide-react";
 import { toast } from "sonner";
 
+interface Stats {
+  courses: number;
+  gallery: number;
+  news: number;
+  contacts: number;
+}
+
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const [stats, setStats] = useState<Stats>({
+    courses: 0,
+    gallery: 0,
+    news: 0,
+    contacts: 0,
+  });
 
   useEffect(() => {
     checkAuth();
+  }, []);
+
+  useEffect(() => {
+    // Set up realtime subscriptions for stats
+    const coursesChannel = supabase
+      .channel("courses-changes")
+      .on("postgres_changes", { event: "*", schema: "public", table: "courses" }, () => {
+        fetchStats();
+      })
+      .subscribe();
+
+    const galleryChannel = supabase
+      .channel("gallery-changes")
+      .on("postgres_changes", { event: "*", schema: "public", table: "gallery_media" }, () => {
+        fetchStats();
+      })
+      .subscribe();
+
+    const newsChannel = supabase
+      .channel("news-changes")
+      .on("postgres_changes", { event: "*", schema: "public", table: "news_articles" }, () => {
+        fetchStats();
+      })
+      .subscribe();
+
+    const contactsChannel = supabase
+      .channel("contacts-changes")
+      .on("postgres_changes", { event: "*", schema: "public", table: "contact_submissions" }, () => {
+        fetchStats();
+      })
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(coursesChannel);
+      supabase.removeChannel(galleryChannel);
+      supabase.removeChannel(newsChannel);
+      supabase.removeChannel(contactsChannel);
+    };
   }, []);
 
   const checkAuth = async () => {
@@ -22,7 +73,28 @@ const AdminDashboard = () => {
       return;
     }
 
+    await fetchStats();
     setLoading(false);
+  };
+
+  const fetchStats = async () => {
+    try {
+      const [coursesRes, galleryRes, newsRes, contactsRes] = await Promise.all([
+        supabase.from("courses").select("id", { count: "exact", head: true }),
+        supabase.from("gallery_media").select("id", { count: "exact", head: true }),
+        supabase.from("news_articles").select("id", { count: "exact", head: true }),
+        supabase.from("contact_submissions").select("id", { count: "exact", head: true }),
+      ]);
+
+      setStats({
+        courses: coursesRes.count || 0,
+        gallery: galleryRes.count || 0,
+        news: newsRes.count || 0,
+        contacts: contactsRes.count || 0,
+      });
+    } catch (error) {
+      console.error("Error fetching stats:", error);
+    }
   };
 
   const handleLogout = async () => {
@@ -40,10 +112,10 @@ const AdminDashboard = () => {
   }
 
   const quickStats = [
-    { title: "Total Courses", value: "0", icon: BookOpen },
-    { title: "Gallery Items", value: "0", icon: Image },
-    { title: "News Articles", value: "0", icon: FileText },
-    { title: "Contact Messages", value: "0", icon: Users },
+    { title: "Total Courses", value: stats.courses.toString(), icon: BookOpen },
+    { title: "Gallery Items", value: stats.gallery.toString(), icon: Image },
+    { title: "News Articles", value: stats.news.toString(), icon: FileText },
+    { title: "Contact Messages", value: stats.contacts.toString(), icon: Users },
   ];
 
   return (
@@ -92,7 +164,7 @@ const AdminDashboard = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate("/admin/courses")}>
             <CardHeader>
               <div className="h-12 w-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-4">
                 <BookOpen className="h-6 w-6 text-primary-foreground" />
@@ -107,7 +179,7 @@ const AdminDashboard = () => {
             </CardContent>
           </Card>
 
-          <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate("/admin/gallery")}>
             <CardHeader>
               <div className="h-12 w-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-4">
                 <Image className="h-6 w-6 text-primary-foreground" />
