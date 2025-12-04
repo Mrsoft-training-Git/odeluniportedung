@@ -99,7 +99,7 @@ const HeroSlider = () => {
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
                   {slide.title}
                 </h1>
-                <p className="text-xl md:text-2xl text-white/90 pl-1">
+                <p className="text-xl md:text-2xl text-white/90 ml-8 md:ml-0">
                   {slide.subtitle}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 pt-4">
