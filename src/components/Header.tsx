@@ -31,7 +31,7 @@ const Header = () => {
         <Link to="/" className="flex items-center space-x-3">
           <img src={uniportLogo} alt="UNIPORT Logo" className="h-14 w-14 object-contain" />
           <div className="flex flex-col">
-            <span className="text-lg font-bold text-foreground">ODEL UniPort</span>
+            <span className="text-lg font-bold text-foreground">ODe-L UniPort</span>
             <span className="text-xs text-muted-foreground">Open, Distance & e-Learning</span>
           </div>
         </Link>
@@ -42,13 +42,7 @@ const Header = () => {
               {link.label}
             </Link>)}
           
-          <a 
-            href="https://www.library.uniport.edu.ng/" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-            title="UniPort Library"
-          >
+          <a href="https://www.library.uniport.edu.ng/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-primary transition-colors" title="UniPort Library">
             <Library className="h-4 w-4" />
             <span>Library</span>
           </a>
@@ -86,12 +80,7 @@ const Header = () => {
             {navLinks.map(link => <Link key={link.to} to={link.to} onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2">
                 {link.label}
               </Link>)}
-            <a 
-              href="https://www.library.uniport.edu.ng/" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="flex items-center text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2"
-            >
+            <a href="https://www.library.uniport.edu.ng/" target="_blank" rel="noopener noreferrer" className="flex items-center text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2">
               <Library className="mr-2 h-4 w-4" />
               Library
             </a>
