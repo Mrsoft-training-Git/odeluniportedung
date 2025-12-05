@@ -32,7 +32,7 @@ const Header = () => {
           <img src={uniportLogo} alt="UNIPORT Logo" className="h-14 w-14 object-contain" />
           <div className="flex flex-col">
             <span className="text-lg font-bold text-foreground">ODe-L UniPort</span>
-            <span className="text-xs text-muted-foreground">Open, Distance & e-Learning</span>
+            <span className="text-xs text-muted-foreground">Open, Distance & e-Learning Centre</span>
           </div>
         </Link>
 
