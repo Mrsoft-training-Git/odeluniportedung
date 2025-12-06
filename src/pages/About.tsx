@@ -1,9 +1,33 @@
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Target, Eye, Award, Users } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
+
+interface TeamMember {
+  id: string;
+  full_name: string;
+  position: string;
+  bio: string | null;
+  image_url: string | null;
+}
 
 const About = () => {
+  const { data: teamMembers, isLoading: isLoadingTeam } = useQuery({
+    queryKey: ["management-team"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("management_team")
+        .select("*")
+        .eq("is_published", true)
+        .order("display_order", { ascending: true });
+      if (error) throw error;
+      return data as TeamMember[];
+    },
+  });
+
   const values = [
     {
       icon: Eye,
@@ -128,7 +152,7 @@ const About = () => {
           </div>
         </section>
 
-        {/* Management Team Placeholder */}
+        {/* Management Team */}
         <section className="py-20 bg-muted/30">
           <div className="container">
             <div className="text-center space-y-4 mb-12">
@@ -138,9 +162,48 @@ const About = () => {
               </p>
             </div>
             
-            <div className="text-center py-12">
-              <p className="text-muted-foreground">Management team information coming soon</p>
-            </div>
+            {isLoadingTeam ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {[1, 2, 3].map((i) => (
+                  <Card key={i}>
+                    <CardContent className="pt-6 text-center">
+                      <Skeleton className="h-32 w-32 rounded-full mx-auto mb-4" />
+                      <Skeleton className="h-6 w-40 mx-auto mb-2" />
+                      <Skeleton className="h-4 w-32 mx-auto" />
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            ) : teamMembers && teamMembers.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {teamMembers.map((member) => (
+                  <Card key={member.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+                    <CardContent className="pt-6 text-center">
+                      {member.image_url ? (
+                        <img
+                          src={member.image_url}
+                          alt={member.full_name}
+                          className="h-32 w-32 rounded-full mx-auto mb-4 object-cover border-4 border-primary/20"
+                        />
+                      ) : (
+                        <div className="h-32 w-32 rounded-full mx-auto mb-4 bg-gradient-to-br from-primary to-accent flex items-center justify-center text-4xl font-bold text-primary-foreground">
+                          {member.full_name.charAt(0)}
+                        </div>
+                      )}
+                      <h3 className="text-xl font-bold">{member.full_name}</h3>
+                      <p className="text-primary font-medium mb-2">{member.position}</p>
+                      {member.bio && (
+                        <p className="text-sm text-muted-foreground">{member.bio}</p>
+                      )}
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <p className="text-muted-foreground">Management team information coming soon</p>
+              </div>
+            )}
           </div>
         </section>
       </main>
