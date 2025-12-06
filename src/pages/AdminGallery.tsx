@@ -24,6 +24,7 @@ import {
 import { ArrowLeft, Plus, Pencil, Trash2, Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import ImageUpload from "@/components/ImageUpload";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
 
 interface GalleryItem {
   id: string;
@@ -39,7 +40,7 @@ interface GalleryItem {
 
 const AdminGallery = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
+  const { isAdmin, loading: authLoading } = useAdminAuth();
   const [gallery, setGallery] = useState<GalleryItem[]>([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<GalleryItem | null>(null);
@@ -60,17 +61,10 @@ const AdminGallery = () => {
   ];
 
   useEffect(() => {
-    checkAuthAndFetch();
-  }, []);
-
-  const checkAuthAndFetch = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
-      navigate("/admin");
-      return;
+    if (isAdmin) {
+      fetchGallery();
     }
-    fetchGallery();
-  };
+  }, [isAdmin]);
 
   const fetchGallery = async () => {
     try {
@@ -84,8 +78,6 @@ const AdminGallery = () => {
     } catch (error) {
       console.error("Error fetching gallery:", error);
       toast.error("Failed to fetch gallery items");
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -190,7 +182,7 @@ const AdminGallery = () => {
     }
   };
 
-  if (loading) {
+  if (authLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p>Loading...</p>

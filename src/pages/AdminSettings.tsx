@@ -7,27 +7,22 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft, Save, Link2 } from "lucide-react";
 import { toast } from "sonner";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
 
 const AdminSettings = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
+  const { isAdmin, loading: authLoading } = useAdminAuth();
   const [saving, setSaving] = useState(false);
   const [diplomaUrl, setDiplomaUrl] = useState("https://lms.odel.uniport.edu.ng/#/home");
   const [undergraduateUrl, setUndergraduateUrl] = useState("https://odeluniport.com/");
 
   useEffect(() => {
-    checkAuthAndLoadSettings();
-  }, []);
-
-  const checkAuthAndLoadSettings = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    
-    if (!session) {
-      navigate("/admin");
-      return;
+    if (isAdmin) {
+      loadSettings();
     }
+  }, [isAdmin]);
 
-    // Load current settings
+  const loadSettings = async () => {
     const { data } = await supabase
       .from("site_settings")
       .select("setting_key, setting_value")
@@ -44,8 +39,6 @@ const AdminSettings = () => {
         setUndergraduateUrl(value);
       }
     });
-
-    setLoading(false);
   };
 
   const handleSave = async () => {
@@ -76,7 +69,7 @@ const AdminSettings = () => {
     }
   };
 
-  if (loading) {
+  if (authLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p>Loading...</p>

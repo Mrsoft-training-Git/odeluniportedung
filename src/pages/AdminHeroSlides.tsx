@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Plus, Pencil, Trash2, GripVertical } from "lucide-react";
 import ImageUpload from "@/components/ImageUpload";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
 
 interface HeroSlide {
   id: string;
@@ -22,7 +23,7 @@ interface HeroSlide {
 const AdminHeroSlides = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [loading, setLoading] = useState(true);
+  const { isAdmin, loading: authLoading } = useAdminAuth();
   const [slides, setSlides] = useState<HeroSlide[]>([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingSlide, setEditingSlide] = useState<HeroSlide | null>(null);
@@ -34,17 +35,10 @@ const AdminHeroSlides = () => {
   });
 
   useEffect(() => {
-    checkAuthAndFetch();
-  }, []);
-
-  const checkAuthAndFetch = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
-      navigate("/admin");
-      return;
+    if (isAdmin) {
+      fetchSlides();
     }
-    fetchSlides();
-  };
+  }, [isAdmin]);
 
   const fetchSlides = async () => {
     const { data, error } = await supabase
@@ -57,7 +51,6 @@ const AdminHeroSlides = () => {
     } else {
       setSlides(data || []);
     }
-    setLoading(false);
   };
 
   const resetForm = () => {
@@ -147,7 +140,7 @@ const AdminHeroSlides = () => {
     }
   };
 
-  if (loading) {
+  if (authLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
