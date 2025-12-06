@@ -32,6 +32,7 @@ import {
 import { ArrowLeft, Plus, Pencil, Trash2, Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import ImageUpload from "@/components/ImageUpload";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
 
 interface Course {
   id: string;
@@ -49,7 +50,7 @@ interface Course {
 
 const AdminCourses = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
+  const { isAdmin, loading: authLoading } = useAdminAuth();
   const [courses, setCourses] = useState<Course[]>([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingCourse, setEditingCourse] = useState<Course | null>(null);
@@ -71,17 +72,10 @@ const AdminCourses = () => {
   ];
 
   useEffect(() => {
-    checkAuthAndFetch();
-  }, []);
-
-  const checkAuthAndFetch = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
-      navigate("/admin");
-      return;
+    if (isAdmin) {
+      fetchCourses();
     }
-    fetchCourses();
-  };
+  }, [isAdmin]);
 
   const fetchCourses = async () => {
     try {
@@ -95,8 +89,6 @@ const AdminCourses = () => {
     } catch (error) {
       console.error("Error fetching courses:", error);
       toast.error("Failed to fetch courses");
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -220,7 +212,7 @@ const AdminCourses = () => {
     }
   };
 
-  if (loading) {
+  if (authLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p>Loading...</p>

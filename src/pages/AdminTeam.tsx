@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -29,6 +29,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import ImageUpload from "@/components/ImageUpload";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
 
 interface TeamMember {
   id: string;
@@ -43,6 +44,7 @@ interface TeamMember {
 const AdminTeam = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { isAdmin, loading: authLoading } = useAdminAuth();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingMember, setEditingMember] = useState<TeamMember | null>(null);
   const [formData, setFormData] = useState({
@@ -52,16 +54,6 @@ const AdminTeam = () => {
     image_url: "",
     is_published: true,
   });
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        navigate("/admin");
-      }
-    };
-    checkAuth();
-  }, [navigate]);
 
   const { data: teamMembers, isLoading } = useQuery({
     queryKey: ["admin-team-members"],
@@ -73,7 +65,16 @@ const AdminTeam = () => {
       if (error) throw error;
       return data as TeamMember[];
     },
+    enabled: isAdmin,
   });
+
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   const createMutation = useMutation({
     mutationFn: async (data: typeof formData) => {

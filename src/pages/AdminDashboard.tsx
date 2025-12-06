@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, BookOpen, Image, FileText, LogOut, Settings, Layers, UserCircle } from "lucide-react";
 import { toast } from "sonner";
 import uniportLogo from "@/assets/uniport-logo-crest.png";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
 
 interface Stats {
   courses: number;
@@ -16,7 +17,7 @@ interface Stats {
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
+  const { isAdmin, loading: authLoading } = useAdminAuth();
   const [stats, setStats] = useState<Stats>({
     courses: 0,
     gallery: 0,
@@ -25,10 +26,14 @@ const AdminDashboard = () => {
   });
 
   useEffect(() => {
-    checkAuth();
-  }, []);
+    if (isAdmin) {
+      fetchStats();
+    }
+  }, [isAdmin]);
 
   useEffect(() => {
+    if (!isAdmin) return;
+    
     // Set up realtime subscriptions for stats
     const coursesChannel = supabase
       .channel("courses-changes")
@@ -64,19 +69,7 @@ const AdminDashboard = () => {
       supabase.removeChannel(newsChannel);
       supabase.removeChannel(contactsChannel);
     };
-  }, []);
-
-  const checkAuth = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    
-    if (!session) {
-      navigate("/admin");
-      return;
-    }
-
-    await fetchStats();
-    setLoading(false);
-  };
+  }, [isAdmin]);
 
   const fetchStats = async () => {
     try {
@@ -104,7 +97,7 @@ const AdminDashboard = () => {
     navigate("/admin");
   };
 
-  if (loading) {
+  if (authLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p>Loading...</p>

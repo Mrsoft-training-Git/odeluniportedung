@@ -26,6 +26,7 @@ import { ArrowLeft, Plus, Pencil, Trash2, Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import { format } from "date-fns";
 import ImageUpload from "@/components/ImageUpload";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
 
 interface NewsArticle {
   id: string;
@@ -41,7 +42,7 @@ interface NewsArticle {
 
 const AdminNews = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
+  const { isAdmin, loading: authLoading } = useAdminAuth();
   const [news, setNews] = useState<NewsArticle[]>([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingNews, setEditingNews] = useState<NewsArticle | null>(null);
@@ -55,17 +56,10 @@ const AdminNews = () => {
   });
 
   useEffect(() => {
-    checkAuthAndFetch();
-  }, []);
-
-  const checkAuthAndFetch = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
-      navigate("/admin");
-      return;
+    if (isAdmin) {
+      fetchNews();
     }
-    fetchNews();
-  };
+  }, [isAdmin]);
 
   const fetchNews = async () => {
     try {
@@ -79,8 +73,6 @@ const AdminNews = () => {
     } catch (error) {
       console.error("Error fetching news:", error);
       toast.error("Failed to fetch news articles");
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -201,7 +193,7 @@ const AdminNews = () => {
     }
   };
 
-  if (loading) {
+  if (authLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p>Loading...</p>
