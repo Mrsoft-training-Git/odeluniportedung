@@ -17,6 +17,7 @@ import AdminCourses from "./pages/AdminCourses";
 import AdminGallery from "./pages/AdminGallery";
 import AdminSettings from "./pages/AdminSettings";
 import AdminHeroSlides from "./pages/AdminHeroSlides";
+import AdminTeam from "./pages/AdminTeam";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const AppContent = () => {
         <Route path="/admin/gallery" element={<AdminGallery />} />
         <Route path="/admin/settings" element={<AdminSettings />} />
         <Route path="/admin/hero-slides" element={<AdminHeroSlides />} />
+        <Route path="/admin/team" element={<AdminTeam />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
