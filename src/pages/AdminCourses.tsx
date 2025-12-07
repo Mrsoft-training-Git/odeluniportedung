@@ -62,6 +62,7 @@ const AdminCourses = () => {
     duration: "",
     image_url: "",
     lms_url: "",
+    learning_outcomes: "",
     is_published: true,
   });
 
@@ -116,6 +117,7 @@ const AdminCourses = () => {
       duration: "",
       image_url: "",
       lms_url: "",
+      learning_outcomes: "",
       is_published: true,
     });
     setEditingCourse(null);
@@ -131,6 +133,7 @@ const AdminCourses = () => {
       duration: course.duration,
       image_url: course.image_url || "",
       lms_url: course.lms_url || "",
+      learning_outcomes: course.learning_outcomes?.join("\n") || "",
       is_published: course.is_published,
     });
     setDialogOpen(true);
@@ -140,6 +143,11 @@ const AdminCourses = () => {
     e.preventDefault();
     
     try {
+      const learningOutcomesArray = formData.learning_outcomes
+        .split("\n")
+        .map((item) => item.trim())
+        .filter((item) => item.length > 0);
+
       const courseData = {
         title: formData.title,
         slug: formData.slug,
@@ -148,7 +156,7 @@ const AdminCourses = () => {
         duration: formData.duration,
         image_url: formData.image_url || null,
         lms_url: formData.lms_url || null,
-        learning_outcomes: [],
+        learning_outcomes: learningOutcomesArray,
         is_published: formData.is_published,
       };
 
@@ -326,6 +334,17 @@ const AdminCourses = () => {
                     value={formData.lms_url}
                     onChange={(e) => setFormData({ ...formData, lms_url: e.target.value })}
                     placeholder="https://lms.example.com/course"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="learning_outcomes">Learning Outcomes (one per line)</Label>
+                  <Textarea
+                    id="learning_outcomes"
+                    value={formData.learning_outcomes}
+                    onChange={(e) => setFormData({ ...formData, learning_outcomes: e.target.value })}
+                    rows={4}
+                    placeholder="Enter each learning outcome on a new line"
                   />
                 </div>
 
