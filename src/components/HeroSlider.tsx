@@ -108,10 +108,10 @@ const HeroSlider = () => {
     })}
 
       {/* Navigation Buttons */}
-      <button onClick={prevSlide} className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full text-white/70 hover:text-white hover:bg-white/10 backdrop-blur-sm transition-all duration-300 hover:scale-110" disabled={isTransitioning}>
+      <button onClick={prevSlide} className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-transparent text-white/70 hover:text-white transition-all duration-300 hover:scale-110" disabled={isTransitioning}>
         <ChevronLeft className="h-8 w-8" />
       </button>
-      <button onClick={nextSlide} className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full text-white/70 hover:text-white hover:bg-white/10 backdrop-blur-sm transition-all duration-300 hover:scale-110" disabled={isTransitioning}>
+      <button onClick={nextSlide} className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-transparent text-white/70 hover:text-white transition-all duration-300 hover:scale-110" disabled={isTransitioning}>
         <ChevronRight className="h-8 w-8" />
       </button>
 
