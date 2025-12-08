@@ -13,6 +13,8 @@ interface Slide {
 
 const HeroSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [previousSlide, setPreviousSlide] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const [slides, setSlides] = useState<Slide[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -38,18 +40,32 @@ const HeroSlider = () => {
     if (slides.length === 0) return;
     
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
+      setIsTransitioning(true);
+      setPreviousSlide((prev) => prev);
+      setCurrentSlide((prev) => {
+        setPreviousSlide(prev);
+        return (prev + 1) % slides.length;
+      });
+      setTimeout(() => setIsTransitioning(false), 800);
     }, 6000);
 
     return () => clearInterval(timer);
   }, [slides.length]);
 
+  const goToSlide = (index: number) => {
+    if (isTransitioning || index === currentSlide) return;
+    setIsTransitioning(true);
+    setPreviousSlide(currentSlide);
+    setCurrentSlide(index);
+    setTimeout(() => setIsTransitioning(false), 800);
+  };
+
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
+    goToSlide((currentSlide + 1) % slides.length);
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+    goToSlide((currentSlide - 1 + slides.length) % slides.length);
   };
 
   if (isLoading) {
@@ -72,66 +88,102 @@ const HeroSlider = () => {
   }
 
   return (
-    <div className="relative h-[400px] md:h-[480px] lg:h-[520px] overflow-hidden">
-      {slides.map((slide, index) => (
-        <div
-          key={slide.id}
-          className={`absolute inset-0 transition-opacity duration-1000 ${
-            index === currentSlide ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <img
-            src={slide.image_url}
-            alt={slide.title}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
-          
-          <div className="absolute inset-0 flex items-center">
-            <div className="container">
-              <div className="max-w-2xl space-y-6 animate-fade-in">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
-                  {slide.title}
-                </h1>
-                <p className="text-xl md:text-2xl text-white/90 ml-8 md:ml-0">
-                  {slide.subtitle}
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                  <Button size="lg" className="text-lg" asChild>
-                    <Link to="/courses">Explore Courses</Link>
-                  </Button>
-                  <Button size="lg" variant="outline" className="text-lg bg-white/10 backdrop-blur-sm border-white text-white hover:bg-white hover:text-primary" asChild>
-                    <Link to="/courses">Apply Now</Link>
-                  </Button>
+    <div className="relative h-[400px] md:h-[480px] lg:h-[520px] overflow-hidden bg-black">
+      {slides.map((slide, index) => {
+        const isActive = index === currentSlide;
+        const isPrevious = index === previousSlide;
+        
+        return (
+          <div
+            key={slide.id}
+            className={`absolute inset-0 transition-all duration-[800ms] ease-out ${
+              isActive 
+                ? "opacity-100 scale-100 z-10" 
+                : isPrevious 
+                  ? "opacity-0 scale-105 z-0" 
+                  : "opacity-0 scale-100 z-0"
+            }`}
+          >
+            <img
+              src={slide.image_url}
+              alt={slide.title}
+              className={`w-full h-full object-cover transition-transform duration-[6000ms] ease-linear ${
+                isActive ? "scale-110" : "scale-100"
+              }`}
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
+            
+            <div className="absolute inset-0 flex items-center">
+              <div className="container">
+                <div className="max-w-2xl space-y-6">
+                  <h1 
+                    className={`text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight transition-all duration-700 ease-out ${
+                      isActive 
+                        ? "opacity-100 translate-y-0" 
+                        : "opacity-0 translate-y-8"
+                    }`}
+                    style={{ transitionDelay: isActive ? "200ms" : "0ms" }}
+                  >
+                    {slide.title}
+                  </h1>
+                  <p 
+                    className={`text-xl md:text-2xl text-white/90 transition-all duration-700 ease-out ${
+                      isActive 
+                        ? "opacity-100 translate-y-0" 
+                        : "opacity-0 translate-y-8"
+                    }`}
+                    style={{ transitionDelay: isActive ? "400ms" : "0ms" }}
+                  >
+                    {slide.subtitle}
+                  </p>
+                  <div 
+                    className={`flex flex-col sm:flex-row gap-4 pt-4 transition-all duration-700 ease-out ${
+                      isActive 
+                        ? "opacity-100 translate-y-0" 
+                        : "opacity-0 translate-y-8"
+                    }`}
+                    style={{ transitionDelay: isActive ? "600ms" : "0ms" }}
+                  >
+                    <Button size="lg" className="text-lg" asChild>
+                      <Link to="/courses">Explore Courses</Link>
+                    </Button>
+                    <Button size="lg" variant="outline" className="text-lg bg-white/10 backdrop-blur-sm border-white text-white hover:bg-white hover:text-primary" asChild>
+                      <Link to="/courses">Apply Now</Link>
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
 
       {/* Navigation Buttons */}
       <button
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 bg-transparent p-3 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all"
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full text-white/70 hover:text-white hover:bg-white/10 backdrop-blur-sm transition-all duration-300 hover:scale-110"
+        disabled={isTransitioning}
       >
-        <ChevronLeft className="h-6 w-6" />
+        <ChevronLeft className="h-8 w-8" />
       </button>
       <button
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 bg-transparent p-3 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all"
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full text-white/70 hover:text-white hover:bg-white/10 backdrop-blur-sm transition-all duration-300 hover:scale-110"
+        disabled={isTransitioning}
       >
-        <ChevronRight className="h-6 w-6" />
+        <ChevronRight className="h-8 w-8" />
       </button>
 
       {/* Slide Indicators */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-3 z-20">
         {slides.map((_, index) => (
           <button
             key={index}
-            onClick={() => setCurrentSlide(index)}
-            className={`h-2 rounded-full transition-all ${
-              index === currentSlide ? "w-8 bg-white" : "w-2 bg-white/50"
+            onClick={() => goToSlide(index)}
+            className={`h-2 rounded-full transition-all duration-500 ease-out ${
+              index === currentSlide 
+                ? "w-10 bg-white shadow-lg shadow-white/30" 
+                : "w-2 bg-white/50 hover:bg-white/70"
             }`}
           />
         ))}
