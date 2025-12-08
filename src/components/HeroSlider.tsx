@@ -4,32 +4,6 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
 
-// Fallback slides if database is empty
-import heroLearning from "@/assets/hero-learning.jpg";
-import campusExterior from "@/assets/campus-exterior.jpg";
-import onlineStudy from "@/assets/online-study.jpg";
-
-const fallbackSlides = [
-  {
-    id: "1",
-    image_url: heroLearning,
-    title: "Providing Lifelong Learning",
-    subtitle: "Through quality teaching, research and innovation",
-  },
-  {
-    id: "2",
-    image_url: campusExterior,
-    title: "Empowering Through Education",
-    subtitle: "Accessible learning for every aspiration",
-  },
-  {
-    id: "3",
-    image_url: onlineStudy,
-    title: "Learn Anywhere, Anytime",
-    subtitle: "Flexible distance education designed for you",
-  },
-];
-
 interface Slide {
   id: string;
   title: string;
@@ -39,19 +13,22 @@ interface Slide {
 
 const HeroSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [slides, setSlides] = useState<Slide[]>(fallbackSlides);
+  const [slides, setSlides] = useState<Slide[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchSlides = async () => {
+      setIsLoading(true);
       const { data, error } = await supabase
         .from("hero_slides")
         .select("id, title, subtitle, image_url")
         .eq("is_published", true)
         .order("display_order", { ascending: true });
 
-      if (!error && data && data.length > 0) {
+      if (!error && data) {
         setSlides(data);
       }
+      setIsLoading(false);
     };
 
     fetchSlides();
@@ -75,7 +52,24 @@ const HeroSlider = () => {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
-  if (slides.length === 0) return null;
+  if (isLoading) {
+    return (
+      <div className="relative h-[400px] md:h-[480px] lg:h-[520px] bg-muted flex items-center justify-center">
+        <div className="animate-pulse text-muted-foreground">Loading...</div>
+      </div>
+    );
+  }
+
+  if (slides.length === 0) {
+    return (
+      <div className="relative h-[400px] md:h-[480px] lg:h-[520px] bg-gradient-to-r from-primary/80 to-primary flex items-center justify-center">
+        <div className="text-center text-primary-foreground">
+          <h2 className="text-2xl font-bold">Welcome to ODEL UniPort</h2>
+          <p className="text-lg mt-2">Add slides from the admin dashboard</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative h-[400px] md:h-[480px] lg:h-[520px] overflow-hidden">
