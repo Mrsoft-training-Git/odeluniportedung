@@ -31,7 +31,7 @@ const Header = () => {
         <Link to="/" className="flex items-center space-x-3">
           <img src={uniportLogo} alt="UNIPORT Logo" className="h-14 w-14 object-contain" />
           <div className="flex flex-col">
-            <span className="text-lg font-bold text-foreground">ODe-L UniPort</span>
+            <span className="text-lg font-bold text-foreground">UNIVERSITY OF PORT HARCOURT</span>
             <span className="text-xs text-muted-foreground">Open, Distance & e-Learning Centre</span>
           </div>
         </Link>
