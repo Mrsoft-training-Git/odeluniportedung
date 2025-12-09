@@ -58,19 +58,19 @@ const HeroSlider = () => {
     goToSlide((currentSlide - 1 + slides.length) % slides.length);
   };
   if (isLoading) {
-    return <div className="relative h-[400px] md:h-[480px] lg:h-[520px] bg-muted flex items-center justify-center">
+    return <div className="relative h-[280px] md:h-[340px] lg:h-[380px] bg-muted flex items-center justify-center">
         <div className="animate-pulse text-muted-foreground">Loading...</div>
       </div>;
   }
   if (slides.length === 0) {
-    return <div className="relative h-[400px] md:h-[480px] lg:h-[520px] bg-gradient-to-r from-primary/80 to-primary flex items-center justify-center">
+    return <div className="relative h-[280px] md:h-[340px] lg:h-[380px] bg-gradient-to-r from-primary/80 to-primary flex items-center justify-center">
         <div className="text-center text-primary-foreground">
           <h2 className="text-2xl font-bold">Welcome to ODEL UniPort</h2>
           <p className="text-lg mt-2">Add slides from the admin dashboard</p>
         </div>
       </div>;
   }
-  return <div className="relative h-[400px] md:h-[480px] lg:h-[520px] overflow-hidden bg-black">
+  return <div className="relative h-[280px] md:h-[340px] lg:h-[380px] overflow-hidden bg-black">
       {slides.map((slide, index) => {
       const isActive = index === currentSlide;
       const isPrevious = index === previousSlide;
