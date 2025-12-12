@@ -212,11 +212,11 @@ const Courses = () => {
                                     <>
                                       <div 
                                         id={`qr-${course.id}`}
-                                        className="bg-white p-2 rounded-lg shadow-inner"
+                                        className="bg-white p-3 rounded-lg shadow-inner"
                                       >
                                         <QRCodeSVG 
                                           value={course.lms_url}
-                                          size={120}
+                                          size={180}
                                           level="H"
                                           includeMargin={true}
                                         />
@@ -226,9 +226,9 @@ const Courses = () => {
                                         Scan to access LMS
                                       </p>
 
-                                      <div className="flex flex-col gap-2 w-full max-w-[200px]">
+                                      <div className="flex gap-2 w-full">
                                         <Button 
-                                          className="w-full"
+                                          className="flex-1"
                                           size="sm"
                                           onClick={() => window.open(course.lms_url!, '_blank')}
                                         >
@@ -237,21 +237,21 @@ const Courses = () => {
                                         <Button 
                                           variant="outline" 
                                           size="sm"
-                                          className="w-full"
+                                          className="flex-1"
                                           onClick={() => downloadQRCode(course.id, course.title)}
                                         >
-                                          <Download className="w-4 h-4 mr-2" />
+                                          <Download className="w-4 h-4 mr-1" />
                                           Download QR
                                         </Button>
-                                        <Button 
-                                          variant="ghost" 
-                                          size="sm"
-                                          className="w-full"
-                                          onClick={() => toggleFlip(course.id)}
-                                        >
-                                          ← Back
-                                        </Button>
                                       </div>
+                                      <Button 
+                                        variant="ghost" 
+                                        size="sm"
+                                        className="w-full"
+                                        onClick={() => toggleFlip(course.id)}
+                                      >
+                                        ← Back
+                                      </Button>
                                     </>
                                   ) : (
                                     <>
