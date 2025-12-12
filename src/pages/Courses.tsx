@@ -133,7 +133,7 @@ const Courses = () => {
                     {filteredCourses.length > 0 ? (
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {filteredCourses.map((course) => (
-                          <div key={course.id} className="perspective-1000 h-[380px]">
+                          <div key={course.id} className="perspective-1000 h-[450px]">
                             <div
                               className={`relative w-full h-full transition-transform duration-500 transform-style-3d ${
                                 flippedCard === course.id ? "[transform:rotateY(180deg)]" : ""
