@@ -131,9 +131,9 @@ const Courses = () => {
                 {categories.map((cat) => (
                   <TabsContent key={cat.value} value={cat.value}>
                     {filteredCourses.length > 0 ? (
-                      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {filteredCourses.map((course) => (
-                          <div key={course.id} className="perspective-1000 h-[340px]">
+                          <div key={course.id} className="perspective-1000 h-[420px]">
                             <div
                               className={`relative w-full h-full transition-transform duration-500 transform-style-3d ${
                                 flippedCard === course.id ? "[transform:rotateY(180deg)]" : ""
@@ -141,8 +141,8 @@ const Courses = () => {
                               style={{ transformStyle: "preserve-3d" }}
                             >
                               {/* Front of Card */}
-                              <Card className="absolute inset-0 group overflow-hidden hover:shadow-lg transition-all duration-300 border border-border/50 bg-card backface-hidden" style={{ backfaceVisibility: "hidden" }}>
-                                <div className="relative h-32 overflow-hidden bg-muted">
+                              <Card className="absolute inset-0 group overflow-hidden hover:shadow-xl transition-all duration-300 border border-border/50 bg-card backface-hidden" style={{ backfaceVisibility: "hidden" }}>
+                                <div className="relative h-48 overflow-hidden bg-muted">
                                   {course.image_url ? (
                                     <img 
                                       src={course.image_url} 
@@ -150,49 +150,47 @@ const Courses = () => {
                                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                                     />
                                   ) : (
-                                    <div className="w-full h-full flex items-center justify-center text-muted-foreground text-sm">
+                                    <div className="w-full h-full flex items-center justify-center text-muted-foreground">
                                       No image
                                     </div>
                                   )}
-                                  <div className="absolute top-2 left-2">
-                                    <span className="px-2 py-1 bg-primary/90 text-primary-foreground rounded text-xs font-medium">
+                                  <div className="absolute top-3 left-3">
+                                    <span className="px-3 py-1.5 bg-primary/90 text-primary-foreground rounded-md text-sm font-medium">
                                       {categories.find(c => c.value === course.category)?.label || course.category}
                                     </span>
                                   </div>
                                 </div>
 
-                                <CardContent className="p-4 space-y-2">
-                                  <h3 className="text-sm font-semibold text-foreground line-clamp-2 leading-tight min-h-[2.5rem]">
+                                <CardContent className="p-6 space-y-4">
+                                  <h3 className="text-lg font-semibold text-foreground line-clamp-2 leading-tight min-h-[3.5rem]">
                                     {course.title}
                                   </h3>
 
-                                  <p className="text-muted-foreground text-xs line-clamp-2 min-h-[2rem]">
+                                  <p className="text-muted-foreground text-sm line-clamp-2 min-h-[2.5rem]">
                                     {course.description}
                                   </p>
 
-                                  <div className="flex items-center gap-1.5 text-muted-foreground text-xs">
-                                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <div className="flex items-center gap-2 text-muted-foreground">
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
-                                    <span className="font-medium">{course.duration}</span>
+                                    <span className="font-medium text-sm">{course.duration}</span>
                                   </div>
 
-                                  <div className="flex gap-2 pt-2">
+                                  <div className="flex gap-3 pt-2">
                                     <Button 
-                                      size="sm"
-                                      className="flex-1 text-xs h-8"
+                                      className="flex-1"
                                       onClick={() => course.lms_url && window.open(course.lms_url, '_blank')}
                                       disabled={!course.lms_url}
                                     >
-                                      Enroll
+                                      Enroll Now
                                     </Button>
                                     <Button 
                                       variant="outline" 
-                                      size="sm"
-                                      className="flex-1 text-xs h-8"
+                                      className="flex-1"
                                       onClick={() => toggleFlip(course.id)}
                                     >
-                                      Details
+                                      View Details
                                     </Button>
                                   </div>
                                 </CardContent>
@@ -200,11 +198,11 @@ const Courses = () => {
 
                               {/* Back of Card */}
                               <Card 
-                                className="absolute inset-0 bg-card border border-border/50 shadow-lg backface-hidden [transform:rotateY(180deg)]"
+                                className="absolute inset-0 bg-card border border-border/50 shadow-xl backface-hidden [transform:rotateY(180deg)]"
                                 style={{ backfaceVisibility: "hidden" }}
                               >
-                                <CardContent className="p-4 h-full flex flex-col items-center justify-center space-y-3">
-                                  <h3 className="text-sm font-semibold text-center text-foreground line-clamp-2">
+                                <CardContent className="p-6 h-full flex flex-col items-center justify-center space-y-4">
+                                  <h3 className="text-lg font-semibold text-center text-foreground line-clamp-2">
                                     {course.title}
                                   </h3>
                                   
@@ -212,59 +210,55 @@ const Courses = () => {
                                     <>
                                       <div 
                                         id={`qr-${course.id}`}
-                                        className="bg-white p-2 rounded-lg shadow-inner"
+                                        className="bg-white p-3 rounded-xl shadow-inner"
                                       >
                                         <QRCodeSVG 
                                           value={course.lms_url}
-                                          size={120}
+                                          size={150}
                                           level="H"
                                           includeMargin={true}
                                         />
                                       </div>
 
-                                      <p className="text-xs text-muted-foreground text-center">
+                                      <p className="text-sm text-muted-foreground text-center">
                                         Scan to access LMS
                                       </p>
 
-                                      <div className="flex flex-col gap-2 w-full">
+                                      <div className="flex flex-col gap-3 w-full max-w-xs">
                                         <Button 
-                                          size="sm"
-                                          className="w-full text-xs h-8"
+                                          className="w-full"
                                           onClick={() => window.open(course.lms_url!, '_blank')}
                                         >
                                           Enroll Now
                                         </Button>
                                         <Button 
                                           variant="outline" 
-                                          size="sm"
-                                          className="w-full text-xs h-8"
+                                          className="w-full"
                                           onClick={() => downloadQRCode(course.id, course.title)}
                                         >
-                                          <Download className="w-3 h-3 mr-1" />
-                                          Download QR
+                                          <Download className="w-4 h-4 mr-2" />
+                                          Download QR Code
                                         </Button>
                                         <Button 
                                           variant="ghost" 
-                                          size="sm"
-                                          className="w-full text-xs h-8"
+                                          className="w-full"
                                           onClick={() => toggleFlip(course.id)}
                                         >
-                                          ← Back
+                                          ← Back to Details
                                         </Button>
                                       </div>
                                     </>
                                   ) : (
                                     <>
-                                      <p className="text-muted-foreground text-center text-xs">
+                                      <p className="text-muted-foreground text-center">
                                         LMS link not available
                                       </p>
                                       <Button 
                                         variant="ghost" 
-                                        size="sm"
-                                        className="w-full text-xs h-8"
+                                        className="w-full max-w-xs"
                                         onClick={() => toggleFlip(course.id)}
                                       >
-                                        ← Back
+                                        ← Back to Details
                                       </Button>
                                     </>
                                   )}
