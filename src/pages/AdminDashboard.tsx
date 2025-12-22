@@ -7,62 +7,61 @@ import { Users, BookOpen, Image, FileText, LogOut, Settings, Layers, UserCircle 
 import { toast } from "sonner";
 import uniportLogo from "@/assets/uniport-logo-crest.png";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
-
 interface Stats {
   courses: number;
   gallery: number;
   news: number;
   contacts: number;
 }
-
 const AdminDashboard = () => {
   const navigate = useNavigate();
-  const { isAdmin, loading: authLoading } = useAdminAuth();
+  const {
+    isAdmin,
+    loading: authLoading
+  } = useAdminAuth();
   const [stats, setStats] = useState<Stats>({
     courses: 0,
     gallery: 0,
     news: 0,
-    contacts: 0,
+    contacts: 0
   });
-
   useEffect(() => {
     if (isAdmin) {
       fetchStats();
     }
   }, [isAdmin]);
-
   useEffect(() => {
     if (!isAdmin) return;
-    
+
     // Set up realtime subscriptions for stats
-    const coursesChannel = supabase
-      .channel("courses-changes")
-      .on("postgres_changes", { event: "*", schema: "public", table: "courses" }, () => {
-        fetchStats();
-      })
-      .subscribe();
-
-    const galleryChannel = supabase
-      .channel("gallery-changes")
-      .on("postgres_changes", { event: "*", schema: "public", table: "gallery_media" }, () => {
-        fetchStats();
-      })
-      .subscribe();
-
-    const newsChannel = supabase
-      .channel("news-changes")
-      .on("postgres_changes", { event: "*", schema: "public", table: "news_articles" }, () => {
-        fetchStats();
-      })
-      .subscribe();
-
-    const contactsChannel = supabase
-      .channel("contacts-changes")
-      .on("postgres_changes", { event: "*", schema: "public", table: "contact_submissions" }, () => {
-        fetchStats();
-      })
-      .subscribe();
-
+    const coursesChannel = supabase.channel("courses-changes").on("postgres_changes", {
+      event: "*",
+      schema: "public",
+      table: "courses"
+    }, () => {
+      fetchStats();
+    }).subscribe();
+    const galleryChannel = supabase.channel("gallery-changes").on("postgres_changes", {
+      event: "*",
+      schema: "public",
+      table: "gallery_media"
+    }, () => {
+      fetchStats();
+    }).subscribe();
+    const newsChannel = supabase.channel("news-changes").on("postgres_changes", {
+      event: "*",
+      schema: "public",
+      table: "news_articles"
+    }, () => {
+      fetchStats();
+    }).subscribe();
+    const contactsChannel = supabase.channel("contacts-changes").on("postgres_changes", {
+      event: "*",
+      schema: "public",
+      table: "contact_submissions"
+    }, () => {
+      fetchStats();
+    }).subscribe();
     return () => {
       supabase.removeChannel(coursesChannel);
       supabase.removeChannel(galleryChannel);
@@ -70,56 +69,65 @@ const AdminDashboard = () => {
       supabase.removeChannel(contactsChannel);
     };
   }, [isAdmin]);
-
   const fetchStats = async () => {
     try {
-      const [coursesRes, galleryRes, newsRes, contactsRes] = await Promise.all([
-        supabase.from("courses").select("id", { count: "exact", head: true }),
-        supabase.from("gallery_media").select("id", { count: "exact", head: true }),
-        supabase.from("news_articles").select("id", { count: "exact", head: true }),
-        supabase.from("contact_submissions").select("id", { count: "exact", head: true }),
-      ]);
-
+      const [coursesRes, galleryRes, newsRes, contactsRes] = await Promise.all([supabase.from("courses").select("id", {
+        count: "exact",
+        head: true
+      }), supabase.from("gallery_media").select("id", {
+        count: "exact",
+        head: true
+      }), supabase.from("news_articles").select("id", {
+        count: "exact",
+        head: true
+      }), supabase.from("contact_submissions").select("id", {
+        count: "exact",
+        head: true
+      })]);
       setStats({
         courses: coursesRes.count || 0,
         gallery: galleryRes.count || 0,
         news: newsRes.count || 0,
-        contacts: contactsRes.count || 0,
+        contacts: contactsRes.count || 0
       });
     } catch (error) {
       console.error("Error fetching stats:", error);
     }
   };
-
   const handleLogout = async () => {
     await supabase.auth.signOut();
     toast.success("Logged out successfully");
     navigate("/admin");
   };
-
   if (authLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
+    return <div className="min-h-screen flex items-center justify-center">
         <p>Loading...</p>
-      </div>
-    );
+      </div>;
   }
-
-  const quickStats = [
-    { title: "Total Courses", value: stats.courses.toString(), icon: BookOpen },
-    { title: "Gallery Items", value: stats.gallery.toString(), icon: Image },
-    { title: "News Articles", value: stats.news.toString(), icon: FileText },
-    { title: "Contact Messages", value: stats.contacts.toString(), icon: Users },
-  ];
-
-  return (
-    <div className="min-h-screen bg-background">
+  const quickStats = [{
+    title: "Total Courses",
+    value: stats.courses.toString(),
+    icon: BookOpen
+  }, {
+    title: "Gallery Items",
+    value: stats.gallery.toString(),
+    icon: Image
+  }, {
+    title: "News Articles",
+    value: stats.news.toString(),
+    icon: FileText
+  }, {
+    title: "Contact Messages",
+    value: stats.contacts.toString(),
+    icon: Users
+  }];
+  return <div className="min-h-screen bg-background">
       <header className="border-b border-border bg-card">
         <div className="container flex h-16 items-center justify-between">
           <Link to="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
             <img src={uniportLogo} alt="UNIPORT Logo" className="h-10 w-10 object-contain" />
             <div>
-              <h1 className="text-lg font-bold">ODEL Admin</h1>
+              <h1 className="text-lg font-bold">ODeL Admin</h1>
               <p className="text-xs text-muted-foreground">Content Management System</p>
             </div>
           </Link>
@@ -137,10 +145,9 @@ const AdminDashboard = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {quickStats.map((stat) => {
-            const Icon = stat.icon;
-            return (
-              <Card key={stat.title}>
+          {quickStats.map(stat => {
+          const Icon = stat.icon;
+          return <Card key={stat.title}>
                 <CardHeader className="flex flex-row items-center justify-between pb-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">
                     {stat.title}
@@ -150,9 +157,8 @@ const AdminDashboard = () => {
                 <CardContent>
                   <div className="text-2xl font-bold">{stat.value}</div>
                 </CardContent>
-              </Card>
-            );
-          })}
+              </Card>;
+        })}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -247,8 +253,6 @@ const AdminDashboard = () => {
           </Card>
         </div>
       </main>
-    </div>
-  );
+    </div>;
 };
-
 export default AdminDashboard;
