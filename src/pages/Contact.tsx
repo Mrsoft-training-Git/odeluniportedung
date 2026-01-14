@@ -76,10 +76,9 @@ const Contact = () => {
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground">
-                      University of Port Harcourt<br />
-                      East-West Road, PMB 5323<br />
-                      Choba, Port Harcourt<br />
-                      Rivers State, Nigeria
+                      F24/5, Chinua Worlu Drive,<br />
+                      Off Abacha Road, GRA Phase 3,<br />
+                      Port Harcourt, Nigeria.
                     </p>
                   </CardContent>
                 </Card>
@@ -92,7 +91,14 @@ const Contact = () => {
                     <CardTitle>Email</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm text-muted-foreground">odel@uniport.edu.ng</p>
+                    <div className="space-y-1">
+                      <a href="mailto:info@odel.uniport.edu.ng" className="block text-sm text-muted-foreground hover:text-primary transition-colors">
+                        info@odel.uniport.edu.ng
+                      </a>
+                      <a href="mailto:support@odel.uniport.edu.ng" className="block text-sm text-muted-foreground hover:text-primary transition-colors">
+                        support@odel.uniport.edu.ng
+                      </a>
+                    </div>
                   </CardContent>
                 </Card>
 
@@ -104,7 +110,14 @@ const Contact = () => {
                     <CardTitle>Phone</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm text-muted-foreground">+234 XXX XXX XXXX</p>
+                    <div className="space-y-1">
+                      <a href="tel:+2348030697250" className="block text-sm text-muted-foreground hover:text-primary transition-colors">
+                        +234 (8) 030697250
+                      </a>
+                      <a href="tel:+2347010511998" className="block text-sm text-muted-foreground hover:text-primary transition-colors">
+                        +234 (7) 010511998
+                      </a>
+                    </div>
                   </CardContent>
                 </Card>
               </div>
