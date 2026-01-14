@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, BookOpen, Image, FileText, LogOut, Settings, Layers, UserCircle } from "lucide-react";
+import { Users, BookOpen, Image, FileText, LogOut, Settings, Layers, UserCircle, Mail } from "lucide-react";
 import { toast } from "sonner";
 import uniportLogo from "@/assets/uniport-logo-crest.png";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
@@ -104,6 +104,8 @@ const AdminDashboard = () => {
         <p>Loading...</p>
       </div>;
   }
+  const unreadContacts = stats.contacts;
+
   const quickStats = [{
     title: "Total Courses",
     value: stats.courses.toString(),
@@ -249,6 +251,26 @@ const AdminDashboard = () => {
                 Configure LMS portal links and site-wide settings
               </p>
               <Button className="w-full">Go to Settings</Button>
+            </CardContent>
+          </Card>
+
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate("/admin/contacts")}>
+            <CardHeader>
+              <div className="h-12 w-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-4 relative">
+                <Mail className="h-6 w-6 text-primary-foreground" />
+                {unreadContacts > 0 && (
+                  <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-destructive text-destructive-foreground text-xs flex items-center justify-center font-bold">
+                    {unreadContacts > 9 ? "9+" : unreadContacts}
+                  </span>
+                )}
+              </div>
+              <CardTitle>Contact Messages</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">
+                View and respond to contact form submissions
+              </p>
+              <Button className="w-full">Go to Messages</Button>
             </CardContent>
           </Card>
         </div>
