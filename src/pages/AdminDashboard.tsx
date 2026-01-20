@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, BookOpen, Image, FileText, LogOut, Settings, Layers, UserCircle, Mail } from "lucide-react";
+import { Users, BookOpen, Image, FileText, LogOut, Settings, Layers, UserCircle, Mail, Megaphone } from "lucide-react";
 import { toast } from "sonner";
 import uniportLogo from "@/assets/uniport-logo-crest.png";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
@@ -271,6 +271,21 @@ const AdminDashboard = () => {
                 View and respond to contact form submissions
               </p>
               <Button className="w-full">Go to Messages</Button>
+            </CardContent>
+          </Card>
+
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate("/admin/announcements")}>
+            <CardHeader>
+              <div className="h-12 w-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-4">
+                <Megaphone className="h-6 w-6 text-primary-foreground" />
+              </div>
+              <CardTitle>Announcements</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">
+                Create popup announcements for visitors
+              </p>
+              <Button className="w-full">Go to Announcements</Button>
             </CardContent>
           </Card>
         </div>
