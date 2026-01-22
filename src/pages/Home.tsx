@@ -40,17 +40,17 @@ const Home = () => {
         <HeroSlider />
 
         {/* About Preview Section */}
-        <section className="py-20 bg-background">
-          <div className="container">
-            <div className="max-w-3xl mx-auto text-center space-y-6">
-              <h2 className="text-3xl md:text-4xl font-bold">Welcome to ODEL UniPort</h2>
-              <p className="text-lg text-muted-foreground">
+        <section className="py-10 sm:py-14 md:py-20 bg-background">
+          <div className="container px-4 sm:px-6">
+            <div className="max-w-3xl mx-auto text-center space-y-4 sm:space-y-6">
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">Welcome to ODEL UniPort</h2>
+              <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed">
                 The Open, Distance and e-Learning Centre at the University of Port Harcourt 
                 provides accessible, quality education through innovative learning solutions. 
                 We are committed to providing lifelong learning opportunities through quality 
                 teaching, research and innovation.
               </p>
-              <Button asChild size="lg">
+              <Button asChild size="default" className="text-sm sm:text-base">
                 <Link to="/about">Learn More About Us</Link>
               </Button>
             </div>
@@ -58,31 +58,31 @@ const Home = () => {
         </section>
 
         {/* Course Categories */}
-        <section className="py-20 bg-muted/30">
-          <div className="container">
-            <div className="text-center space-y-4 mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold">Our Programmes</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+        <section className="py-10 sm:py-14 md:py-20 bg-muted/30">
+          <div className="container px-4 sm:px-6">
+            <div className="text-center space-y-3 sm:space-y-4 mb-8 sm:mb-12">
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">Our Programmes</h2>
+              <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
                 Explore our diverse range of educational programmes designed to meet your learning needs
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {courseCategories.map((category) => {
                 const Icon = category.icon;
                 return (
                   <Card key={category.title} className="hover:shadow-lg transition-shadow">
-                    <CardHeader>
-                      <div className="h-12 w-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-4">
-                        <Icon className="h-6 w-6 text-primary-foreground" />
+                    <CardHeader className="pb-2 sm:pb-4">
+                      <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-3 sm:mb-4">
+                        <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary-foreground" />
                       </div>
-                      <CardTitle>{category.title}</CardTitle>
+                      <CardTitle className="text-base sm:text-lg">{category.title}</CardTitle>
                     </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground mb-4">
+                    <CardContent className="pt-0">
+                      <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
                         {category.description}
                       </p>
-                      <Button asChild variant="outline" size="sm" className="w-full">
+                      <Button asChild variant="outline" size="sm" className="w-full text-xs sm:text-sm">
                         <Link to={category.link}>Explore Courses</Link>
                       </Button>
                     </CardContent>
@@ -94,17 +94,18 @@ const Home = () => {
         </section>
 
         {/* Quick Links Section */}
-        <section className="py-20 bg-primary text-primary-foreground">
-          <div className="container">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              <div className="text-center p-8 bg-white/10 backdrop-blur-sm rounded-lg">
-                <h3 className="text-2xl font-bold mb-4">Diploma & Short Courses</h3>
-                <p className="mb-6">
+        <section className="py-10 sm:py-14 md:py-20 bg-primary text-primary-foreground">
+          <div className="container px-4 sm:px-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8 max-w-4xl mx-auto">
+              <div className="text-center p-5 sm:p-6 md:p-8 bg-white/10 backdrop-blur-sm rounded-lg">
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-3 sm:mb-4">Diploma & Short Courses</h3>
+                <p className="text-sm sm:text-base mb-4 sm:mb-6 opacity-90">
                   Access diploma and short course programmes through our dedicated LMS portal
                 </p>
                 <Button 
                   variant="secondary" 
-                  size="lg" 
+                  size="default"
+                  className="text-sm sm:text-base"
                   asChild
                 >
                   <a 
@@ -117,14 +118,15 @@ const Home = () => {
                 </Button>
               </div>
 
-              <div className="text-center p-8 bg-white/10 backdrop-blur-sm rounded-lg">
-                <h3 className="text-2xl font-bold mb-4">Undergraduate & Postgraduate</h3>
-                <p className="mb-6">
+              <div className="text-center p-5 sm:p-6 md:p-8 bg-white/10 backdrop-blur-sm rounded-lg">
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-3 sm:mb-4">Undergraduate & Postgraduate</h3>
+                <p className="text-sm sm:text-base mb-4 sm:mb-6 opacity-90">
                   Access degree programmes through our main learning management system
                 </p>
                 <Button 
                   variant="secondary" 
-                  size="lg"
+                  size="default"
+                  className="text-sm sm:text-base"
                   asChild
                 >
                   <a 
@@ -141,11 +143,11 @@ const Home = () => {
         </section>
 
         {/* Latest News */}
-        <section className="py-20 bg-background">
-          <div className="container">
-            <div className="text-center space-y-4 mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold">Latest News</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+        <section className="py-10 sm:py-14 md:py-20 bg-background">
+          <div className="container px-4 sm:px-6">
+            <div className="text-center space-y-3 sm:space-y-4 mb-8 sm:mb-12">
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">Latest News</h2>
+              <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
                 Stay updated with the latest happenings at ODEL UniPort
               </p>
             </div>

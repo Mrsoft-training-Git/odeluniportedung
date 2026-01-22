@@ -26,31 +26,31 @@ const Footer = () => {
 
   return (
     <footer className="bg-card border-t border-border">
-      <div className="container py-12">
-        <h2 className="text-2xl font-bold text-center mb-10">Contact us</h2>
+      <div className="container py-8 sm:py-10 md:py-12 px-4 sm:px-6">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-center mb-6 sm:mb-8 md:mb-10">Contact us</h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {offices.map((office, index) => (
-            <div key={index} className="space-y-3">
+            <div key={index} className="space-y-2 sm:space-y-3">
               <div className="flex items-start space-x-2">
-                <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-muted-foreground">{office.address}</span>
+                <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-primary mt-0.5 flex-shrink-0" />
+                <span className="text-xs sm:text-sm text-muted-foreground">{office.address}</span>
               </div>
               
               {office.phones.map((phone, phoneIndex) => (
                 <div key={phoneIndex} className="flex items-center space-x-2">
-                  <Phone className="h-5 w-5 text-primary flex-shrink-0" />
-                  <a href={`tel:${phone.replace(/\s/g, '')}`} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-primary flex-shrink-0" />
+                  <a href={`tel:${phone.replace(/\s/g, '')}`} className="text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors">
                     {phone}
                   </a>
                 </div>
               ))}
               
               <div className="flex items-start space-x-2">
-                <Mail className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                <Mail className="h-4 w-4 sm:h-5 sm:w-5 text-primary mt-0.5 flex-shrink-0" />
                 <div className="flex flex-col">
                   {office.emails.map((email, emailIndex) => (
-                    <a key={emailIndex} href={`mailto:${email}`} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                    <a key={emailIndex} href={`mailto:${email}`} className="text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors break-all">
                       {email}
                     </a>
                   ))}
@@ -60,8 +60,8 @@ const Footer = () => {
           ))}
         </div>
 
-        <div className="mt-12 pt-8 border-t border-border text-center">
-          <p className="text-sm text-muted-foreground">
+        <div className="mt-8 sm:mt-10 md:mt-12 pt-6 sm:pt-8 border-t border-border text-center">
+          <p className="text-xs sm:text-sm text-muted-foreground">
             © {new Date().getFullYear()} Open Distance and e-Learning Centre, University of Port Harcourt. All rights reserved.
           </p>
         </div>
