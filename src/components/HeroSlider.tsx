@@ -112,7 +112,7 @@ const HeroSlider = () => {
                     className={`flex flex-col sm:flex-row gap-2 sm:gap-4 pt-2 sm:pt-4 transition-all duration-700 ease-out ${isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`} 
                     style={{ transitionDelay: isActive ? "600ms" : "0ms" }}
                   >
-                    <Button size="sm" className="text-xs sm:text-sm md:text-base sm:size-default md:size-lg" asChild>
+                    <Button size="sm" className="text-[10px] px-3 py-1.5 h-auto sm:text-sm sm:px-4 sm:py-2 md:text-base md:px-6 md:py-3" asChild>
                       <Link to="/courses">Explore Courses</Link>
                     </Button>
                     <Button 
