@@ -203,18 +203,18 @@ const Contact = () => {
           </div>
           <div className="w-full h-[250px] md:h-[350px] relative">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3975.5!2d6.9234!3d4.8956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1069cd7c5a123457%3A0x1234567890abcdef!2sUniversity%20of%20Port%20Harcourt%20Business%20School!5e0!3m2!1sen!2sng!4v1700000000000!5m2!1sen!2sng"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3975.6!2d7.0198!3d4.8396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s!2sChinua%20Worlu%20Drive%2C%20Off%20Abacha%20Road%2C%20GRA%20Phase%203%2C%20Port%20Harcourt%2C%20Nigeria!5e0!3m2!1sen!2sng!4v1700000000000!5m2!1sen!2sng"
               width="100%"
               height="100%"
               style={{ border: 0 }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="University of Port Harcourt Business School and ICAN Tuition Center"
+              title="ODeL Centre Location - F24/5, Chinua Worlu Drive, GRA Phase 3, Port Harcourt"
               className="w-full h-full"
             />
             <a
-              href="https://www.google.com/maps/dir/?api=1&destination=University+of+Port+Harcourt+Business+School,+Port+Harcourt,+Nigeria"
+              href="https://www.google.com/maps/dir/?api=1&destination=Chinua+Worlu+Drive,+Off+Abacha+Road,+GRA+Phase+3,+Port+Harcourt,+Nigeria"
               target="_blank"
               rel="noopener noreferrer"
               className="absolute bottom-4 right-4 inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-lg shadow-lg hover:bg-primary/90 transition-colors font-medium"
