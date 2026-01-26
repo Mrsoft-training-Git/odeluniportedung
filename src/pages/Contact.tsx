@@ -199,18 +199,30 @@ const Contact = () => {
         {/* Embedded Google Map */}
         <section className="py-12 md:py-20 bg-muted/30">
           <div className="container">
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-6">Find Us</h2>
             <div className="aspect-video rounded-lg overflow-hidden shadow-lg">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3975.5424!2d7.0134!3d4.8156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1069cd5c5c5c5c5c%3A0x5c5c5c5c5c5c5c5c!2sChinua%20Worlu%20Drive%2C%20GRA%20Phase%203%2C%20Port%20Harcourt%2C%20Nigeria!5e0!3m2!1sen!2sng!4v1700000000000!5m2!1sen!2sng"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3975.6!2d7.0198!3d4.8396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1069cda5a5a5a5a5%3A0x1234567890abcdef!2sGRA%20Phase%203%2C%20Port%20Harcourt%2C%20Rivers%2C%20Nigeria!5e0!3m2!1sen!2sng!4v1700000000000!5m2!1sen!2sng"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="ODeL Centre Location - Port Harcourt"
+                title="ODeL Centre Location - GRA Phase 3, Port Harcourt"
                 className="w-full h-full"
               />
+            </div>
+            <div className="mt-4 text-center">
+              <a
+                href="https://www.google.com/maps/dir/?api=1&destination=GRA+Phase+3,+Port+Harcourt,+Rivers,+Nigeria"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium transition-colors"
+              >
+                <MapPin className="h-4 w-4" />
+                Get Directions to Our Office
+              </a>
             </div>
           </div>
         </section>
