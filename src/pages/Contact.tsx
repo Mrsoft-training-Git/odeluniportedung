@@ -196,11 +196,21 @@ const Contact = () => {
           </div>
         </section>
 
-        {/* Map Placeholder */}
-        <section className="py-20 bg-muted/30">
+        {/* Embedded Google Map */}
+        <section className="py-12 md:py-20 bg-muted/30">
           <div className="container">
-            <div className="aspect-video bg-muted rounded-lg flex items-center justify-center">
-              <p className="text-muted-foreground">Map will be embedded here</p>
+            <div className="aspect-video rounded-lg overflow-hidden shadow-lg">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3975.5424!2d7.0134!3d4.8156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1069cd5c5c5c5c5c%3A0x5c5c5c5c5c5c5c5c!2sChinua%20Worlu%20Drive%2C%20GRA%20Phase%203%2C%20Port%20Harcourt%2C%20Nigeria!5e0!3m2!1sen!2sng!4v1700000000000!5m2!1sen!2sng"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="ODeL Centre Location - Port Harcourt"
+                className="w-full h-full"
+              />
             </div>
           </div>
         </section>
