@@ -101,7 +101,7 @@ const ImageUpload = ({ value, onChange, folder = "uploads", label = "Image" }: I
             <div className="flex flex-col items-center gap-2">
               <Upload className="h-8 w-8 text-muted-foreground" />
               <p className="text-sm text-muted-foreground">Click to upload image</p>
-              <p className="text-xs text-muted-foreground">Max size: 5MB</p>
+              <p className="text-xs text-muted-foreground">Max size: 10MB</p>
             </div>
           )}
         </div>
