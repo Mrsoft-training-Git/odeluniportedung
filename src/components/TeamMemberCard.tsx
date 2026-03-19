@@ -12,7 +12,7 @@ const TeamMemberCard = ({ full_name, position, bio, image_url }: TeamMemberCardP
     <div className="group bg-card rounded-2xl border border-border/50 shadow-sm hover:shadow-[var(--shadow-elevated)] hover:border-primary/15 transition-all duration-400 ease-out overflow-hidden">
       <div className="flex flex-col sm:flex-row">
         {/* Image — dominant, 40% on desktop, full on mobile */}
-        <div className="sm:w-[40%] flex-shrink-0 overflow-hidden">
+        <div className="sm:w-[60%] flex-shrink-0 overflow-hidden">
           {image_url ? (
             <img
               src={image_url}
