@@ -12,7 +12,7 @@ const TeamMemberCard = ({ full_name, position, bio, image_url }: TeamMemberCardP
     <div className="group bg-card rounded-2xl border border-border/50 shadow-sm hover:shadow-[var(--shadow-elevated)] hover:border-primary/15 transition-all duration-400 ease-out overflow-hidden">
       <div className="flex flex-col sm:flex-row">
         {/* Image — dominant, 40% on desktop, full on mobile */}
-        <div className="sm:w-[40%] flex-shrink-0 overflow-hidden">
+        <div className="sm:w-[60%] flex-shrink-0 overflow-hidden">
           {image_url ? (
             <img
               src={image_url}
@@ -29,7 +29,7 @@ const TeamMemberCard = ({ full_name, position, bio, image_url }: TeamMemberCardP
         </div>
 
         {/* Content — 60%, vertically centered */}
-        <div className="sm:w-[60%] p-6 sm:p-7 md:p-8 flex flex-col justify-center text-center sm:text-left">
+        <div className="sm:w-[40%] p-6 sm:p-7 md:p-8 flex flex-col justify-center text-center sm:text-left">
           <h3 className="text-xl md:text-2xl font-bold text-foreground leading-tight tracking-tight">
             {full_name}
           </h3>
