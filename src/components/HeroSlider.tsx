@@ -96,6 +96,9 @@ const HeroSlider = () => {
             <img 
               src={slide.image_url} 
               alt={slide.title} 
+              loading="eager"
+              fetchPriority={index === 0 ? "high" : "auto"}
+              decoding={index === 0 ? "sync" : "async"}
               className={`w-full h-full object-cover transition-transform duration-[6000ms] ease-linear ${isActive ? "scale-110" : "scale-100"}`} 
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
