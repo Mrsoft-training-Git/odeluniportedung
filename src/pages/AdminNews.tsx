@@ -49,7 +49,6 @@ const AdminNews = () => {
   const [formData, setFormData] = useState({
     title: "",
     slug: "",
-    excerpt: "",
     content: "",
     image_url: "",
     is_published: true
