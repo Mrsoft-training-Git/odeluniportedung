@@ -58,10 +58,26 @@ const HeroSlider = () => {
   const prevSlide = () => {
     goToSlide((currentSlide - 1 + slides.length) % slides.length);
   };
-  if (isLoading) {
+  if (isLoading || slides.length === 0) {
     return (
-      <div className="relative h-[200px] sm:h-[260px] md:h-[320px] lg:h-[380px] bg-muted flex items-center justify-center">
-        <div className="animate-pulse text-muted-foreground text-sm sm:text-base">Loading...</div>
+      <div className="relative h-[200px] sm:h-[260px] md:h-[320px] lg:h-[380px] overflow-hidden">
+        <img
+          src={defaultHeroImage}
+          alt="University of Port Harcourt"
+          className="w-full h-full object-cover"
+          loading="eager"
+          fetchPriority="high"
+          decoding="sync"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
+        <div className="absolute inset-0 flex items-center">
+          <div className="container px-4 sm:px-6">
+            <div className="max-w-xl sm:max-w-2xl space-y-2 sm:space-y-4">
+              <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold text-white">Welcome to ODEL UniPort</h2>
+              <p className="text-sm sm:text-base md:text-lg text-white/90">Open, Distance and e-Learning Centre</p>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
