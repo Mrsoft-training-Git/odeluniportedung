@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
+import defaultHeroImage from "@/assets/uniport-senate.jpg";
 interface Slide {
   id: string;
   title: string;
