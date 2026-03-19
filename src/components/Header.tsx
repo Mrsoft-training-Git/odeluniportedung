@@ -8,7 +8,8 @@ import { useLmsSettings } from "@/hooks/useLmsSettings";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const {
+  const location = useLocation();
+  const navigate = useNavigate();
     data: lmsSettings
   } = useLmsSettings();
   
