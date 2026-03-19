@@ -49,7 +49,6 @@ const AdminNews = () => {
   const [formData, setFormData] = useState({
     title: "",
     slug: "",
-    excerpt: "",
     content: "",
     image_url: "",
     is_published: true
@@ -95,7 +94,7 @@ const AdminNews = () => {
     setFormData({
       title: "",
       slug: "",
-      excerpt: "",
+      
       content: "",
       image_url: "",
       is_published: true
@@ -108,7 +107,7 @@ const AdminNews = () => {
     setFormData({
       title: article.title,
       slug: article.slug,
-      excerpt: article.excerpt,
+      
       content: article.content,
       image_url: article.image_url || "",
       is_published: article.is_published
@@ -123,7 +122,7 @@ const AdminNews = () => {
       const articleData = {
         title: formData.title,
         slug: formData.slug,
-        excerpt: formData.excerpt,
+        excerpt: formData.content.substring(0, 200),
         content: formData.content,
         image_url: formData.image_url || null,
         is_published: formData.is_published,
@@ -248,17 +247,6 @@ const AdminNews = () => {
                     value={formData.slug}
                     onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
                     required />
-                  
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="excerpt">Excerpt</Label>
-                  
-
-
-
-
-
                   
                 </div>
 
