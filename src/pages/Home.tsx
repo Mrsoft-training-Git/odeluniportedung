@@ -14,7 +14,25 @@ import { useLmsSettings } from "@/hooks/useLmsSettings";
 const Home = () => {
   const { data: lmsSettings } = useLmsSettings();
 
-  const courseCategories = [
+  const { data: teamMembers, isLoading: isLoadingTeam } = useQuery({
+    queryKey: ["management-team"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("management_team")
+        .select("*")
+        .eq("is_published", true)
+        .order("display_order", { ascending: true });
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  const values = [
+    { icon: Eye, title: "Our Vision", description: "To be a globally recognized centre of excellence in open, distance and e-learning, providing innovative and accessible quality education." },
+    { icon: Target, title: "Our Mission", description: "To provide lifelong learning opportunities through quality teaching, research and innovation using cutting-edge technology." },
+    { icon: Award, title: "Quality Education", description: "We maintain the highest academic standards while ensuring accessibility and flexibility in our programmes." },
+    { icon: Users, title: "Student-Centered", description: "Our approach prioritizes learner needs, providing comprehensive support throughout the educational journey." },
+  ];
     {
       title: "Certificate/Diploma",
       description: "Professional certificate and diploma programmes",
