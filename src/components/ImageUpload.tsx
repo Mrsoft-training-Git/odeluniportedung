@@ -27,9 +27,9 @@ const ImageUpload = ({ value, onChange, folder = "uploads", label = "Image" }: I
       return;
     }
 
-    // Validate file size (max 5MB)
-    if (file.size > 5 * 1024 * 1024) {
-      toast.error("Image must be less than 5MB");
+    // Validate file size (max 10MB)
+    if (file.size > 10 * 1024 * 1024) {
+      toast.error("Image must be less than 10MB");
       return;
     }
 
@@ -101,7 +101,7 @@ const ImageUpload = ({ value, onChange, folder = "uploads", label = "Image" }: I
             <div className="flex flex-col items-center gap-2">
               <Upload className="h-8 w-8 text-muted-foreground" />
               <p className="text-sm text-muted-foreground">Click to upload image</p>
-              <p className="text-xs text-muted-foreground">Max size: 5MB</p>
+              <p className="text-xs text-muted-foreground">Max size: 10MB</p>
             </div>
           )}
         </div>
