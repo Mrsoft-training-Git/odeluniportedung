@@ -10,8 +10,21 @@ const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-    data: lmsSettings
-  } = useLmsSettings();
+  const { data: lmsSettings } = useLmsSettings();
+
+  const handleNavClick = (to: string, e: React.MouseEvent) => {
+    if (to.startsWith("/#")) {
+      e.preventDefault();
+      const hash = to.slice(1);
+      if (location.pathname === "/") {
+        const el = document.getElementById(hash.slice(1));
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      } else {
+        navigate(to);
+      }
+    }
+    setMobileMenuOpen(false);
+  };
   
   const navLinks = [{
     to: "/",
