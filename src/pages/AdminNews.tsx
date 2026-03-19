@@ -94,7 +94,7 @@ const AdminNews = () => {
     setFormData({
       title: "",
       slug: "",
-      excerpt: "",
+      
       content: "",
       image_url: "",
       is_published: true
