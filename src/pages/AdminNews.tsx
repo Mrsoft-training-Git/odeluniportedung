@@ -12,16 +12,16 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+  DialogTrigger } from
+"@/components/ui/dialog";
 import {
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+  TableRow } from
+"@/components/ui/table";
 import { ArrowLeft, Plus, Pencil, Trash2, Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import { format } from "date-fns";
@@ -52,7 +52,7 @@ const AdminNews = () => {
     excerpt: "",
     content: "",
     image_url: "",
-    is_published: true,
+    is_published: true
   });
 
   useEffect(() => {
@@ -63,10 +63,10 @@ const AdminNews = () => {
 
   const fetchNews = async () => {
     try {
-      const { data, error } = await supabase
-        .from("news_articles")
-        .select("*")
-        .order("created_at", { ascending: false });
+      const { data, error } = await supabase.
+      from("news_articles").
+      select("*").
+      order("created_at", { ascending: false });
 
       if (error) throw error;
       setNews(data || []);
@@ -77,17 +77,17 @@ const AdminNews = () => {
   };
 
   const generateSlug = (title: string) => {
-    return title
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/(^-|-$)/g, "");
+    return title.
+    toLowerCase().
+    replace(/[^a-z0-9]+/g, "-").
+    replace(/(^-|-$)/g, "");
   };
 
   const handleTitleChange = (title: string) => {
     setFormData({
       ...formData,
       title,
-      slug: editingNews ? formData.slug : generateSlug(title),
+      slug: editingNews ? formData.slug : generateSlug(title)
     });
   };
 
@@ -98,7 +98,7 @@ const AdminNews = () => {
       excerpt: "",
       content: "",
       image_url: "",
-      is_published: true,
+      is_published: true
     });
     setEditingNews(null);
   };
@@ -111,14 +111,14 @@ const AdminNews = () => {
       excerpt: article.excerpt,
       content: article.content,
       image_url: article.image_url || "",
-      is_published: article.is_published,
+      is_published: article.is_published
     });
     setDialogOpen(true);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
       const articleData = {
         title: formData.title,
@@ -127,21 +127,21 @@ const AdminNews = () => {
         content: formData.content,
         image_url: formData.image_url || null,
         is_published: formData.is_published,
-        published_at: formData.is_published ? new Date().toISOString() : null,
+        published_at: formData.is_published ? new Date().toISOString() : null
       };
 
       if (editingNews) {
-        const { error } = await supabase
-          .from("news_articles")
-          .update(articleData)
-          .eq("id", editingNews.id);
+        const { error } = await supabase.
+        from("news_articles").
+        update(articleData).
+        eq("id", editingNews.id);
 
         if (error) throw error;
         toast.success("News article updated successfully");
       } else {
-        const { error } = await supabase
-          .from("news_articles")
-          .insert([articleData]);
+        const { error } = await supabase.
+        from("news_articles").
+        insert([articleData]);
 
         if (error) throw error;
         toast.success("News article created successfully");
@@ -160,10 +160,10 @@ const AdminNews = () => {
     if (!confirm("Are you sure you want to delete this article?")) return;
 
     try {
-      const { error } = await supabase
-        .from("news_articles")
-        .delete()
-        .eq("id", id);
+      const { error } = await supabase.
+      from("news_articles").
+      delete().
+      eq("id", id);
 
       if (error) throw error;
       toast.success("News article deleted successfully");
@@ -176,13 +176,13 @@ const AdminNews = () => {
 
   const togglePublished = async (article: NewsArticle) => {
     try {
-      const { error } = await supabase
-        .from("news_articles")
-        .update({
-          is_published: !article.is_published,
-          published_at: !article.is_published ? new Date().toISOString() : null,
-        })
-        .eq("id", article.id);
+      const { error } = await supabase.
+      from("news_articles").
+      update({
+        is_published: !article.is_published,
+        published_at: !article.is_published ? new Date().toISOString() : null
+      }).
+      eq("id", article.id);
 
       if (error) throw error;
       toast.success(article.is_published ? "Article unpublished" : "Article published");
@@ -197,8 +197,8 @@ const AdminNews = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p>Loading...</p>
-      </div>
-    );
+      </div>);
+
   }
 
   return (
@@ -237,8 +237,8 @@ const AdminNews = () => {
                     id="title"
                     value={formData.title}
                     onChange={(e) => handleTitleChange(e.target.value)}
-                    required
-                  />
+                    required />
+                  
                 </div>
 
                 <div className="space-y-2">
@@ -247,19 +247,19 @@ const AdminNews = () => {
                     id="slug"
                     value={formData.slug}
                     onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-                    required
-                  />
+                    required />
+                  
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="excerpt">Excerpt</Label>
-                  <Textarea
-                    id="excerpt"
-                    value={formData.excerpt}
-                    onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
-                    rows={2}
-                    required
-                  />
+                  
+
+
+
+
+
+                  
                 </div>
 
                 <div className="space-y-2">
@@ -269,28 +269,28 @@ const AdminNews = () => {
                     value={formData.content}
                     onChange={(e) => setFormData({ ...formData, content: e.target.value })}
                     rows={6}
-                    required
-                  />
+                    required />
+                  
                 </div>
 
                 <ImageUpload
                   value={formData.image_url}
                   onChange={(url) => setFormData({ ...formData, image_url: url })}
                   folder="news"
-                  label="Article Image"
-                />
+                  label="Article Image" />
+                
 
                 <div className="flex items-center space-x-2">
                   <Switch
                     id="is_published"
                     checked={formData.is_published}
-                    onCheckedChange={(checked) => setFormData({ ...formData, is_published: checked })}
-                  />
+                    onCheckedChange={(checked) => setFormData({ ...formData, is_published: checked })} />
+                  
                   <Label htmlFor="is_published">Publish immediately</Label>
                 </div>
 
                 <div className="flex justify-end gap-3">
-                  <Button type="button" variant="outline" onClick={() => { setDialogOpen(false); resetForm(); }}>
+                  <Button type="button" variant="outline" onClick={() => {setDialogOpen(false);resetForm();}}>
                     Cancel
                   </Button>
                   <Button type="submit">{editingNews ? "Update" : "Create"}</Button>
@@ -307,12 +307,12 @@ const AdminNews = () => {
             <CardTitle>News Articles ({news.length})</CardTitle>
           </CardHeader>
           <CardContent>
-            {news.length === 0 ? (
-              <p className="text-center text-muted-foreground py-8">
+            {news.length === 0 ?
+            <p className="text-center text-muted-foreground py-8">
                 No news articles yet. Click "Add Article" to create one.
-              </p>
-            ) : (
-              <Table>
+              </p> :
+
+            <Table>
                 <TableHeader>
                   <TableRow>
                     <TableHead>Image</TableHead>
@@ -323,24 +323,24 @@ const AdminNews = () => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {news.map((article) => (
-                    <TableRow key={article.id}>
+                  {news.map((article) =>
+                <TableRow key={article.id}>
                       <TableCell>
-                        {article.image_url ? (
-                          <img src={article.image_url} alt={article.title} className="w-16 h-12 object-cover rounded" />
-                        ) : (
-                          <div className="w-16 h-12 bg-muted rounded flex items-center justify-center text-xs text-muted-foreground">
+                        {article.image_url ?
+                    <img src={article.image_url} alt={article.title} className="w-16 h-12 object-cover rounded" /> :
+
+                    <div className="w-16 h-12 bg-muted rounded flex items-center justify-center text-xs text-muted-foreground">
                             No image
                           </div>
-                        )}
+                    }
                       </TableCell>
                       <TableCell className="font-medium max-w-xs truncate">{article.title}</TableCell>
                       <TableCell>
                         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                          article.is_published
-                            ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
-                            : "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
-                        }`}>
+                    article.is_published ?
+                    "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200" :
+                    "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"}`
+                    }>
                           {article.is_published ? "Published" : "Draft"}
                         </span>
                       </TableCell>
@@ -361,15 +361,15 @@ const AdminNews = () => {
                         </div>
                       </TableCell>
                     </TableRow>
-                  ))}
+                )}
                 </TableBody>
               </Table>
-            )}
+            }
           </CardContent>
         </Card>
       </main>
-    </div>
-  );
+    </div>);
+
 };
 
 export default AdminNews;
