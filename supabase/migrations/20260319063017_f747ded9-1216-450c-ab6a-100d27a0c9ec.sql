@@ -1,0 +1,2 @@
+INSERT INTO public.profiles (id, email, full_name) VALUES ('d0ea712f-f6b9-4442-89b4-367dff35d5d1', 'contact@m-rinternational.com', 'Admin') ON CONFLICT (id) DO NOTHING;
+INSERT INTO public.user_roles (user_id, role) VALUES ('d0ea712f-f6b9-4442-89b4-367dff35d5d1', 'admin') ON CONFLICT DO NOTHING;
