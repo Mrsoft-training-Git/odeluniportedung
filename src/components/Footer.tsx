@@ -1,4 +1,5 @@
 import { MapPin, Phone, Mail } from "lucide-react";
+import mrLogo from "@/assets/mr-logo.png";
 
 const Footer = () => {
   const offices = [
