@@ -116,7 +116,7 @@ const Header = () => {
             <Link 
               key={link.to} 
               to={link.to} 
-              onClick={() => setMobileMenuOpen(false)} 
+              onClick={(e) => handleNavClick(link.to, e)} 
               className="text-sm font-medium text-muted-foreground hover:text-primary hover:bg-muted/50 transition-colors py-2.5 px-3 rounded-md"
             >
               {link.label}
