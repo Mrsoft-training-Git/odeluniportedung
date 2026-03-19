@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Target, Eye, Award, Users } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import TeamMemberCard from "@/components/TeamMemberCard";
 interface TeamMember {
   id: string;
   full_name: string;
