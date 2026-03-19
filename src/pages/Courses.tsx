@@ -192,7 +192,7 @@ const Courses = () => {
                                       className="flex-1"
                                       onClick={() => toggleFlip(course.id)}
                                     >
-                                      View Details
+                                      View QR Code
                                     </Button>
                                   </div>
                                 </CardContent>
