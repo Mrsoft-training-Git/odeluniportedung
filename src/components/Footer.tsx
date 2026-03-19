@@ -60,10 +60,23 @@ const Footer = () => {
           ))}
         </div>
 
-        <div className="mt-8 sm:mt-10 md:mt-12 pt-6 sm:pt-8 border-t border-border text-center">
+        <div className="mt-8 sm:mt-10 md:mt-12 pt-6 sm:pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs sm:text-sm text-muted-foreground">
             © {new Date().getFullYear()} Open Distance and e-Learning Centre, University of Port Harcourt. All rights reserved.
           </p>
+          <a
+            href="https://www.m-rinternational.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="transition-opacity hover:opacity-70"
+            title="MR International"
+          >
+            <img
+              src={mrLogo}
+              alt="MR International"
+              className="h-5 w-auto object-contain"
+            />
+          </a>
         </div>
       </div>
     </footer>
