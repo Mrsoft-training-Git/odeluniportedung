@@ -68,14 +68,6 @@ const AdminTeam = () => {
     enabled: isAdmin,
   });
 
-  if (authLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p>Loading...</p>
-      </div>
-    );
-  }
-
   const createMutation = useMutation({
     mutationFn: async (data: typeof formData) => {
       const maxOrder = teamMembers?.length
@@ -138,6 +130,14 @@ const AdminTeam = () => {
       queryClient.invalidateQueries({ queryKey: ["admin-team-members"] });
     },
   });
+
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   const resetForm = () => {
     setFormData({
