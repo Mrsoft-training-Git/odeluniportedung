@@ -127,7 +127,7 @@ const NewsCarousel = ({ autoPlayInterval = 4000 }: NewsCarouselProps) => {
                   className="overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer group border-0 bg-card/50 backdrop-blur-sm"
                   onClick={() => setSelectedNews(article)}
                 >
-                  <div className="relative h-56 overflow-hidden">
+                  <div className="relative h-72 md:h-80 overflow-hidden">
                     <img 
                       src={getImageUrl(article, index)} 
                       alt={article.title}
