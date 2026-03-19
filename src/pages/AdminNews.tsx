@@ -251,16 +251,16 @@ const AdminNews = () => {
                   
                 </div>
 
-                
+                <div className="space-y-2">
+                  <Label htmlFor="excerpt">Excerpt</Label>
+                  
 
 
 
 
 
-
-
-
-                
+                  
+                </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="content">Content</Label>
