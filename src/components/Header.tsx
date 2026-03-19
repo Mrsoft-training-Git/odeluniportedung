@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Menu, X, GraduationCap, BookOpen, Library } from "lucide-react";
@@ -8,29 +8,15 @@ import { useLmsSettings } from "@/hooks/useLmsSettings";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { data: lmsSettings } = useLmsSettings();
-
-  const handleNavClick = (to: string, e: React.MouseEvent) => {
-    if (to.startsWith("/#")) {
-      e.preventDefault();
-      const hash = to.slice(1);
-      if (location.pathname === "/") {
-        const el = document.getElementById(hash.slice(1));
-        if (el) el.scrollIntoView({ behavior: "smooth" });
-      } else {
-        navigate(to);
-      }
-    }
-    setMobileMenuOpen(false);
-  };
+  const {
+    data: lmsSettings
+  } = useLmsSettings();
   
   const navLinks = [{
     to: "/",
     label: "Home"
   }, {
-    to: "/#about",
+    to: "/about",
     label: "About Us"
   }, {
     to: "/courses",
@@ -60,7 +46,6 @@ const Header = () => {
             <Link 
               key={link.to} 
               to={link.to} 
-              onClick={(e) => handleNavClick(link.to, e)}
               className="text-xs xl:text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
             >
               {link.label}
@@ -116,7 +101,7 @@ const Header = () => {
             <Link 
               key={link.to} 
               to={link.to} 
-              onClick={(e) => handleNavClick(link.to, e)} 
+              onClick={() => setMobileMenuOpen(false)} 
               className="text-sm font-medium text-muted-foreground hover:text-primary hover:bg-muted/50 transition-colors py-2.5 px-3 rounded-md"
             >
               {link.label}
