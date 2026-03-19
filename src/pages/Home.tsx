@@ -12,25 +12,25 @@ const Home = () => {
   const { data: lmsSettings } = useLmsSettings();
 
   const courseCategories = [
-    {
-      title: "Certificate/Diploma",
-      description: "Professional certificate and diploma programmes",
-      icon: BookOpen,
-      link: "/courses?category=certificate_diploma",
-    },
-    {
-      title: "Undergraduate",
-      description: "Bachelor's degree programmes",
-      icon: GraduationCap,
-      link: "/courses?category=undergraduate",
-    },
-    {
-      title: "Postgraduate",
-      description: "Master's and doctoral programmes",
-      icon: Award,
-      link: "/courses?category=postgraduate",
-    },
-  ];
+  {
+    title: "Certificate/Diploma",
+    description: "Professional certificate and diploma programmes",
+    icon: BookOpen,
+    link: "/courses?category=certificate_diploma"
+  },
+  {
+    title: "Undergraduate",
+    description: "Bachelor's degree programmes",
+    icon: GraduationCap,
+    link: "/courses?category=undergraduate"
+  },
+  {
+    title: "Postgraduate",
+    description: "Master's and doctoral programmes",
+    icon: Award,
+    link: "/courses?category=postgraduate"
+  }];
+
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -43,7 +43,7 @@ const Home = () => {
         <section className="py-10 sm:py-14 md:py-20 bg-background">
           <div className="container px-4 sm:px-6">
             <div className="max-w-3xl mx-auto text-center space-y-4 sm:space-y-6">
-              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">Welcome to ODEL UniPort</h2>
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">Welcome to ODeL UniPort</h2>
               <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed">
                 The Open, Distance and e-Learning Centre at the University of Port Harcourt 
                 provides accessible, quality education through innovative learning solutions. 
@@ -86,8 +86,8 @@ const Home = () => {
                         <Link to={category.link}>Explore Courses</Link>
                       </Button>
                     </CardContent>
-                  </Card>
-                );
+                  </Card>);
+
               })}
             </div>
           </div>
@@ -102,17 +102,17 @@ const Home = () => {
                 <p className="text-sm sm:text-base mb-4 sm:mb-6 opacity-90">
                   Access diploma and short course programmes through our dedicated LMS portal
                 </p>
-                <Button 
-                  variant="secondary" 
+                <Button
+                  variant="secondary"
                   size="default"
                   className="text-sm sm:text-base"
-                  asChild
-                >
-                  <a 
-                    href={lmsSettings?.diplomaShortCourses || "https://lms.odel.uniport.edu.ng/#/home"} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                  >
+                  asChild>
+                  
+                  <a
+                    href={lmsSettings?.diplomaShortCourses || "https://lms.odel.uniport.edu.ng/#/home"}
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    
                     Go to Portal
                   </a>
                 </Button>
@@ -123,17 +123,17 @@ const Home = () => {
                 <p className="text-sm sm:text-base mb-4 sm:mb-6 opacity-90">
                   Access degree programmes through our main learning management system
                 </p>
-                <Button 
-                  variant="secondary" 
+                <Button
+                  variant="secondary"
                   size="default"
                   className="text-sm sm:text-base"
-                  asChild
-                >
-                  <a 
-                    href={lmsSettings?.undergraduatePostgraduate || "https://odeluniport.com/"} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                  >
+                  asChild>
+                  
+                  <a
+                    href={lmsSettings?.undergraduatePostgraduate || "https://odeluniport.com/"}
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    
                     Go to Portal
                   </a>
                 </Button>
@@ -158,8 +158,8 @@ const Home = () => {
       </main>
 
       <Footer />
-    </div>
-  );
+    </div>);
+
 };
 
 export default Home;
