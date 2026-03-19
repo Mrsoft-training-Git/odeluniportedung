@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from "react";
-import { Card, CardContent } from "@/components/ui/card";
+import { useState, useEffect } from "react";
+import { Card } from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
@@ -123,17 +123,17 @@ const NewsCarousel = ({ autoPlayInterval = 4000 }: NewsCarouselProps) => {
           <CarouselContent className="-ml-4">
             {newsArticles.map((article, index) => (
               <CarouselItem key={article.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                <Card 
+                <Card
                   className="overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer group border-0 bg-card/50 backdrop-blur-sm"
                   onClick={() => setSelectedNews(article)}
                 >
-                  <div className="relative h-72 md:h-80 overflow-hidden">
-                    <img 
-                      src={getImageUrl(article, index)} 
+                  <div className="relative h-72 md:h-80 overflow-hidden bg-muted">
+                    <img
+                      src={getImageUrl(article, index)}
                       alt={article.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      className="w-full h-full object-contain group-hover:scale-[1.02] transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/30 to-transparent" />
                     <div className="absolute bottom-0 left-0 right-0 p-5">
                       <p className="text-xs text-primary font-medium mb-2 uppercase tracking-wider">
                         {formatDate(article.published_at)}
@@ -161,11 +161,11 @@ const NewsCarousel = ({ autoPlayInterval = 4000 }: NewsCarouselProps) => {
             <p className="text-sm text-primary font-medium">
               {formatDate(selectedNews?.published_at || null)}
             </p>
-            <div className="relative h-64 overflow-hidden rounded-lg bg-muted">
-              <img 
-                src={selectedNews?.image_url || defaultImages[0]} 
+            <div className="relative max-h-[65vh] overflow-hidden rounded-lg bg-muted">
+              <img
+                src={selectedNews?.image_url || defaultImages[0]}
                 alt={selectedNews?.title}
-                className="w-full h-full object-cover"
+                className="w-full h-auto max-h-[65vh] object-contain mx-auto"
               />
             </div>
             <p className="text-foreground leading-relaxed whitespace-pre-line">
