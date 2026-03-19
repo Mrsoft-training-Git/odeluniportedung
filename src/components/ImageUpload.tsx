@@ -27,9 +27,9 @@ const ImageUpload = ({ value, onChange, folder = "uploads", label = "Image" }: I
       return;
     }
 
-    // Validate file size (max 5MB)
-    if (file.size > 5 * 1024 * 1024) {
-      toast.error("Image must be less than 5MB");
+    // Validate file size (max 10MB)
+    if (file.size > 10 * 1024 * 1024) {
+      toast.error("Image must be less than 10MB");
       return;
     }
 
