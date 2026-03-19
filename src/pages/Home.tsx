@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeroSlider from "@/components/HeroSlider";
 import NewsCarousel from "@/components/NewsCarousel";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { GraduationCap, BookOpen, Award } from "lucide-react";
+import { GraduationCap, BookOpen, Award, Target, Eye, Users } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useLmsSettings } from "@/hooks/useLmsSettings";
 
 const Home = () => {

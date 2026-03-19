@@ -16,7 +16,7 @@ const Header = () => {
     to: "/",
     label: "Home"
   }, {
-    to: "/about",
+    to: "/#about",
     label: "About Us"
   }, {
     to: "/courses",
