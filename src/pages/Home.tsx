@@ -147,8 +147,8 @@ const Home = () => {
           <div className="container px-4 sm:px-6">
             <div className="text-center space-y-3 sm:space-y-4 mb-8 sm:mb-12">
               <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">Latest News</h2>
-              <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
-                Stay updated with the latest happenings at ODEL UniPort
+              <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">Stay updated with the latest happenings at ODeL UniPort
+
               </p>
             </div>
 
