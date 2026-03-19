@@ -60,6 +60,7 @@ const Header = () => {
             <Link 
               key={link.to} 
               to={link.to} 
+              onClick={(e) => handleNavClick(link.to, e)}
               className="text-xs xl:text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
             >
               {link.label}
