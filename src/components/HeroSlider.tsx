@@ -36,8 +36,8 @@ const HeroSlider = () => {
     if (slides.length === 0) return;
     const timer = setInterval(() => {
       setIsTransitioning(true);
-      setPreviousSlide(prev => prev);
-      setCurrentSlide(prev => {
+      setPreviousSlide((prev) => prev);
+      setCurrentSlide((prev) => {
         setPreviousSlide(prev);
         return (prev + 1) % slides.length;
       });
@@ -67,19 +67,19 @@ const HeroSlider = () => {
           className="w-full h-full object-cover"
           loading="eager"
           fetchPriority="high"
-          decoding="sync"
-        />
+          decoding="sync" />
+        
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
         <div className="absolute inset-0 flex items-center">
           <div className="container px-4 sm:px-6">
             <div className="max-w-xl sm:max-w-2xl space-y-2 sm:space-y-4">
-              <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold text-white">Welcome to ODEL UniPort</h2>
+              <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold text-white">Welcome to ODeL UniPort</h2>
               <p className="text-sm sm:text-base md:text-lg text-white/90">Open, Distance and e-Learning Centre</p>
             </div>
           </div>
         </div>
-      </div>
-    );
+      </div>);
+
   }
 
 
@@ -89,86 +89,86 @@ const HeroSlider = () => {
         const isActive = index === currentSlide;
         const isPrevious = index === previousSlide;
         return (
-          <div 
-            key={slide.id} 
-            className={`absolute inset-0 transition-all duration-[800ms] ease-out ${isActive ? "opacity-100 scale-100 z-10" : isPrevious ? "opacity-0 scale-105 z-0" : "opacity-0 scale-100 z-0"}`}
-          >
-            <img 
-              src={slide.image_url} 
-              alt={slide.title} 
+          <div
+            key={slide.id}
+            className={`absolute inset-0 transition-all duration-[800ms] ease-out ${isActive ? "opacity-100 scale-100 z-10" : isPrevious ? "opacity-0 scale-105 z-0" : "opacity-0 scale-100 z-0"}`}>
+            
+            <img
+              src={slide.image_url}
+              alt={slide.title}
               loading="eager"
               fetchPriority={index === 0 ? "high" : "auto"}
               decoding={index === 0 ? "sync" : "async"}
-              className={`w-full h-full object-cover transition-transform duration-[6000ms] ease-linear ${isActive ? "scale-110" : "scale-100"}`} 
-            />
+              className={`w-full h-full object-cover transition-transform duration-[6000ms] ease-linear ${isActive ? "scale-110" : "scale-100"}`} />
+            
             <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
             
             <div className="absolute inset-0 flex items-center">
               <div className="container px-4 sm:px-6">
                 <div className="max-w-xl sm:max-w-2xl space-y-2 sm:space-y-4 md:space-y-6">
-                  <h1 
-                    className={`text-xl sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight transition-all duration-700 ease-out ${isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`} 
-                    style={{ transitionDelay: isActive ? "200ms" : "0ms" }}
-                  >
+                  <h1
+                    className={`text-xl sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight transition-all duration-700 ease-out ${isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+                    style={{ transitionDelay: isActive ? "200ms" : "0ms" }}>
+                    
                     {slide.title}
                   </h1>
-                  <p 
-                    className={`text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-white/90 transition-all duration-700 ease-out ${isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`} 
-                    style={{ transitionDelay: isActive ? "400ms" : "0ms" }}
-                  >
+                  <p
+                    className={`text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-white/90 transition-all duration-700 ease-out ${isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+                    style={{ transitionDelay: isActive ? "400ms" : "0ms" }}>
+                    
                     {slide.subtitle}
                   </p>
-                  <div 
-                    className={`flex flex-row items-start gap-2 sm:gap-4 pt-2 sm:pt-4 transition-all duration-700 ease-out ${isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`} 
-                    style={{ transitionDelay: isActive ? "600ms" : "0ms" }}
-                  >
+                  <div
+                    className={`flex flex-row items-start gap-2 sm:gap-4 pt-2 sm:pt-4 transition-all duration-700 ease-out ${isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+                    style={{ transitionDelay: isActive ? "600ms" : "0ms" }}>
+                    
                     <Button size="sm" className="text-[10px] px-3 py-1.5 h-auto sm:text-sm sm:px-4 sm:py-2 md:text-base md:px-6 md:py-3" asChild>
                       <Link to="/courses">Explore Courses</Link>
                     </Button>
-                    <Button 
-                      size="sm" 
-                      variant="outline" 
-                      className="text-xs sm:text-sm md:text-base sm:size-default md:size-lg bg-white/10 backdrop-blur-sm border-white text-white hover:bg-white hover:text-primary" 
-                      asChild
-                    >
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="text-xs sm:text-sm md:text-base sm:size-default md:size-lg bg-white/10 backdrop-blur-sm border-white text-white hover:bg-white hover:text-primary"
+                      asChild>
+                      
                       
                     </Button>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        );
+          </div>);
+
       })}
 
       {/* Navigation Buttons */}
-      <button 
-        onClick={prevSlide} 
-        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 rounded-full bg-transparent text-white/70 hover:text-white transition-all duration-300 hover:scale-110" 
-        disabled={isTransitioning}
-      >
+      <button
+        onClick={prevSlide}
+        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 rounded-full bg-transparent text-white/70 hover:text-white transition-all duration-300 hover:scale-110"
+        disabled={isTransitioning}>
+        
         <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6 md:h-8 md:w-8" />
       </button>
-      <button 
-        onClick={nextSlide} 
-        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 rounded-full bg-transparent text-white/70 hover:text-white transition-all duration-300 hover:scale-110" 
-        disabled={isTransitioning}
-      >
+      <button
+        onClick={nextSlide}
+        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 rounded-full bg-transparent text-white/70 hover:text-white transition-all duration-300 hover:scale-110"
+        disabled={isTransitioning}>
+        
         <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6 md:h-8 md:w-8" />
       </button>
 
       {/* Slide Indicators */}
       <div className="absolute bottom-3 sm:bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 flex space-x-2 sm:space-x-3 z-20">
-        {slides.map((_, index) => (
-          <button 
-            key={index} 
-            onClick={() => goToSlide(index)} 
-            className={`h-1.5 sm:h-2 rounded-full transition-all duration-500 ease-out ${index === currentSlide ? "w-6 sm:w-8 md:w-10 bg-white shadow-lg shadow-white/30" : "w-1.5 sm:w-2 bg-white/50 hover:bg-white/70"}`} 
-          />
-        ))}
+        {slides.map((_, index) =>
+        <button
+          key={index}
+          onClick={() => goToSlide(index)}
+          className={`h-1.5 sm:h-2 rounded-full transition-all duration-500 ease-out ${index === currentSlide ? "w-6 sm:w-8 md:w-10 bg-white shadow-lg shadow-white/30" : "w-1.5 sm:w-2 bg-white/50 hover:bg-white/70"}`} />
+
+        )}
       </div>
-    </div>
-  );
+    </div>);
+
 };
 
 export default HeroSlider;
