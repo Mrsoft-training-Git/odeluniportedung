@@ -154,38 +154,31 @@ const About = () => {
             </div>
             
             {isLoadingTeam ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-6">
                 {[1, 2, 3].map(i => (
-                  <Card key={i}>
-                    <CardContent className="pt-4 sm:pt-6 text-center">
-                      <Skeleton className="h-24 w-24 sm:h-32 sm:w-32 rounded-full mx-auto mb-3 sm:mb-4" />
-                      <Skeleton className="h-5 sm:h-6 w-32 sm:w-40 mx-auto mb-2" />
-                      <Skeleton className="h-4 w-24 sm:w-32 mx-auto" />
-                    </CardContent>
-                  </Card>
+                  <div key={i} className="bg-card rounded-xl border border-border/60 p-6">
+                    <div className="flex flex-col sm:flex-row gap-4">
+                      <Skeleton className="h-28 w-28 rounded-xl mx-auto sm:mx-0 flex-shrink-0" />
+                      <div className="flex-1 space-y-3 text-center sm:text-left">
+                        <Skeleton className="h-5 w-40 mx-auto sm:mx-0" />
+                        <Skeleton className="h-4 w-28 mx-auto sm:mx-0" />
+                        <Skeleton className="h-px w-10 mx-auto sm:mx-0" />
+                        <Skeleton className="h-4 w-full" />
+                      </div>
+                    </div>
+                  </div>
                 ))}
               </div>
             ) : teamMembers && teamMembers.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-6">
                 {teamMembers.map(member => (
-                  <Card key={member.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-                    <CardContent className="pt-4 sm:pt-6 text-center">
-                      {member.image_url ? (
-                        <img 
-                          src={member.image_url} 
-                          alt={member.full_name} 
-                          className="h-24 w-24 sm:h-32 sm:w-32 rounded-full mx-auto mb-3 sm:mb-4 object-cover border-4 border-primary/20" 
-                        />
-                      ) : (
-                        <div className="h-24 w-24 sm:h-32 sm:w-32 rounded-full mx-auto mb-3 sm:mb-4 bg-gradient-to-br from-primary to-accent flex items-center justify-center text-2xl sm:text-4xl font-bold text-primary-foreground">
-                          {member.full_name.charAt(0)}
-                        </div>
-                      )}
-                      <h3 className="text-base sm:text-lg md:text-xl font-bold">{member.full_name}</h3>
-                      <p className="text-primary font-medium mb-1 sm:mb-2 text-sm sm:text-base">{member.position}</p>
-                      {member.bio && <p className="text-xs sm:text-sm text-muted-foreground">{member.bio}</p>}
-                    </CardContent>
-                  </Card>
+                  <TeamMemberCard
+                    key={member.id}
+                    full_name={member.full_name}
+                    position={member.position}
+                    bio={member.bio}
+                    image_url={member.image_url}
+                  />
                 ))}
               </div>
             ) : (
