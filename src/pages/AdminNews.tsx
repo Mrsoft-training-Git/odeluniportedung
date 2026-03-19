@@ -123,7 +123,7 @@ const AdminNews = () => {
       const articleData = {
         title: formData.title,
         slug: formData.slug,
-        excerpt: formData.excerpt,
+        excerpt: formData.content.substring(0, 200),
         content: formData.content,
         image_url: formData.image_url || null,
         is_published: formData.is_published,
