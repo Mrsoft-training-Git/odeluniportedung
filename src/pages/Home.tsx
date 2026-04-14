@@ -11,27 +11,6 @@ import { useLmsSettings } from "@/hooks/useLmsSettings";
 const Home = () => {
   const { data: lmsSettings } = useLmsSettings();
 
-  const courseCategories = [
-  {
-    title: "Certificate/Diploma",
-    description: "Professional certificate and diploma programmes",
-    icon: BookOpen,
-    link: "/courses?category=certificate_diploma"
-  },
-  {
-    title: "Undergraduate",
-    description: "Bachelor's degree programmes",
-    icon: GraduationCap,
-    link: "/courses?category=undergraduate"
-  },
-  {
-    title: "Postgraduate",
-    description: "Master's and doctoral programmes",
-    icon: Award,
-    link: "/courses?category=postgraduate"
-  }];
-
-
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -57,7 +36,7 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Course Categories */}
+        {/* Our Programmes */}
         <section className="py-10 sm:py-14 md:py-20 bg-muted/30">
           <div className="container px-4 sm:px-6">
             <div className="text-center space-y-3 sm:space-y-4 mb-8 sm:mb-12">
@@ -67,28 +46,52 @@ const Home = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-              {courseCategories.map((category) => {
-                const Icon = category.icon;
-                return (
-                  <Card key={category.title} className="hover:shadow-lg transition-shadow">
-                    <CardHeader className="pb-2 sm:pb-4">
-                      <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-3 sm:mb-4">
-                        <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary-foreground" />
-                      </div>
-                      <CardTitle className="text-base sm:text-lg">{category.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="pt-0">
-                      <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
-                        {category.description}
-                      </p>
-                      <Button asChild variant="outline" size="sm" className="w-full text-xs sm:text-sm">
-                        <Link to={category.link}>Explore Courses</Link>
-                      </Button>
-                    </CardContent>
-                  </Card>);
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8 max-w-4xl mx-auto">
+              <Card className="hover:shadow-lg transition-shadow text-center p-2">
+                <CardHeader className="pb-2 sm:pb-4">
+                  <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                    <BookOpen className="h-5 w-5 sm:h-6 sm:w-6 text-primary-foreground" />
+                  </div>
+                  <CardTitle className="text-base sm:text-lg">Diploma & Short Courses</CardTitle>
+                </CardHeader>
+                <CardContent className="pt-0">
+                  <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
+                    Access diploma and short course programmes through our dedicated LMS portal
+                  </p>
+                  <Button asChild variant="outline" size="sm" className="w-full text-xs sm:text-sm">
+                    <a
+                      href={lmsSettings?.diplomaShortCourses || "https://lms.odel.uniport.edu.ng/#/home"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Go to Portal
+                    </a>
+                  </Button>
+                </CardContent>
+              </Card>
 
-              })}
+              <Card className="hover:shadow-lg transition-shadow text-center p-2">
+                <CardHeader className="pb-2 sm:pb-4">
+                  <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                    <GraduationCap className="h-5 w-5 sm:h-6 sm:w-6 text-primary-foreground" />
+                  </div>
+                  <CardTitle className="text-base sm:text-lg">Undergraduate & Postgraduate</CardTitle>
+                </CardHeader>
+                <CardContent className="pt-0">
+                  <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
+                    Access degree programmes through our main learning management system
+                  </p>
+                  <Button asChild variant="outline" size="sm" className="w-full text-xs sm:text-sm">
+                    <a
+                      href={lmsSettings?.undergraduatePostgraduate || "https://odeluniport.com/"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Go to Portal
+                    </a>
+                  </Button>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </section>
