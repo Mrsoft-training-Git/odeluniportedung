@@ -5,7 +5,7 @@ import HeroSlider from "@/components/HeroSlider";
 import NewsCarousel from "@/components/NewsCarousel";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { GraduationCap, BookOpen, Award } from "lucide-react";
+import { GraduationCap, BookOpen } from "lucide-react";
 import { useLmsSettings } from "@/hooks/useLmsSettings";
 
 const Home = () => {
