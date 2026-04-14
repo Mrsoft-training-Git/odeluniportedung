@@ -96,54 +96,7 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Quick Links Section */}
-        <section className="py-10 sm:py-14 md:py-20 bg-primary text-primary-foreground">
-          <div className="container px-4 sm:px-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8 max-w-4xl mx-auto">
-              <div className="text-center p-5 sm:p-6 md:p-8 bg-white/10 backdrop-blur-sm rounded-lg">
-                <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-3 sm:mb-4">Diploma & Short Courses</h3>
-                <p className="text-sm sm:text-base mb-4 sm:mb-6 opacity-90">
-                  Access diploma and short course programmes through our dedicated LMS portal
-                </p>
-                <Button
-                  variant="secondary"
-                  size="default"
-                  className="text-sm sm:text-base"
-                  asChild>
-                  
-                  <a
-                    href={lmsSettings?.diplomaShortCourses || "https://lms.odel.uniport.edu.ng/#/home"}
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    
-                    Go to Portal
-                  </a>
-                </Button>
-              </div>
 
-              <div className="text-center p-5 sm:p-6 md:p-8 bg-white/10 backdrop-blur-sm rounded-lg">
-                <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-3 sm:mb-4">Undergraduate & Postgraduate</h3>
-                <p className="text-sm sm:text-base mb-4 sm:mb-6 opacity-90">
-                  Access degree programmes through our main learning management system
-                </p>
-                <Button
-                  variant="secondary"
-                  size="default"
-                  className="text-sm sm:text-base"
-                  asChild>
-                  
-                  <a
-                    href={lmsSettings?.undergraduatePostgraduate || "https://odeluniport.com/"}
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    
-                    Go to Portal
-                  </a>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* Latest News */}
         <section className="py-10 sm:py-14 md:py-20 bg-background">
