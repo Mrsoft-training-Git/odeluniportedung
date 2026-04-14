@@ -60,7 +60,7 @@ const HeroSlider = () => {
   };
   if (isLoading || slides.length === 0) {
     return (
-      <div className="relative h-[200px] sm:h-[260px] md:h-[320px] lg:h-[380px] overflow-hidden">
+      <div className="relative h-[280px] sm:h-[340px] md:h-[420px] lg:h-[500px] overflow-hidden">
         <img
           src={defaultHeroImage}
           alt="University of Port Harcourt"
@@ -84,7 +84,7 @@ const HeroSlider = () => {
 
 
   return (
-    <div className="relative h-[200px] sm:h-[260px] md:h-[320px] lg:h-[380px] overflow-hidden bg-black">
+    <div className="relative h-[280px] sm:h-[340px] md:h-[420px] lg:h-[500px] overflow-hidden bg-black">
       {slides.map((slide, index) => {
         const isActive = index === currentSlide;
         const isPrevious = index === previousSlide;

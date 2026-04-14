@@ -26,32 +26,32 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-card border-t border-border">
-      <div className="container py-8 sm:py-10 md:py-12 px-4 sm:px-6">
-        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-center mb-6 sm:mb-8 md:mb-10">Contact us</h2>
+    <footer className="bg-foreground text-background/80">
+      <div className="container py-10 sm:py-12 md:py-16 px-4 sm:px-6">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-center mb-8 sm:mb-10 md:mb-12 text-background">Contact us</h2>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {offices.map((office, index) => (
             <div key={index} className="space-y-2 sm:space-y-3">
               <div className="flex items-start space-x-2">
-                <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-primary mt-0.5 flex-shrink-0" />
-                <span className="text-xs sm:text-sm text-muted-foreground">{office.address}</span>
+                <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-accent mt-0.5 flex-shrink-0" />
+                <span className="text-xs sm:text-sm text-background/70">{office.address}</span>
               </div>
               
               {office.phones.map((phone, phoneIndex) => (
                 <div key={phoneIndex} className="flex items-center space-x-2">
-                  <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-primary flex-shrink-0" />
-                  <a href={`tel:${phone.replace(/\s/g, '')}`} className="text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors">
+                  <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-accent flex-shrink-0" />
+                  <a href={`tel:${phone.replace(/\s/g, '')}`} className="text-xs sm:text-sm text-background/70 hover:text-accent transition-colors">
                     {phone}
                   </a>
                 </div>
               ))}
               
               <div className="flex items-start space-x-2">
-                <Mail className="h-4 w-4 sm:h-5 sm:w-5 text-primary mt-0.5 flex-shrink-0" />
+                <Mail className="h-4 w-4 sm:h-5 sm:w-5 text-accent mt-0.5 flex-shrink-0" />
                 <div className="flex flex-col">
                   {office.emails.map((email, emailIndex) => (
-                    <a key={emailIndex} href={`mailto:${email}`} className="text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors break-all">
+                    <a key={emailIndex} href={`mailto:${email}`} className="text-xs sm:text-sm text-background/70 hover:text-accent transition-colors break-all">
                       {email}
                     </a>
                   ))}
@@ -61,8 +61,8 @@ const Footer = () => {
           ))}
         </div>
 
-        <div className="mt-8 sm:mt-10 md:mt-12 pt-6 sm:pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs sm:text-sm text-muted-foreground">
+        <div className="mt-10 sm:mt-12 md:mt-16 pt-6 sm:pt-8 border-t border-background/10 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-xs sm:text-sm text-background/50">
             © {new Date().getFullYear()} Open Distance and e-Learning Centre, University of Port Harcourt. All rights reserved.
           </p>
           <a
