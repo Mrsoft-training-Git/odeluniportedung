@@ -8,6 +8,21 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { QRCodeSVG } from "qrcode.react";
 import { Download, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import LiveProgramsGrid from "@/components/LiveProgramsGrid";
+
+interface LiveProgram {
+  id: string;
+  title: string;
+  short_description: string;
+  category: string;
+  price: number;
+  currency: string;
+  image_url: string | null;
+  students_count: number;
+  is_featured: boolean;
+  apply_url: string;
+  details_url: string;
+}
 
 interface Course {
   id: string;
@@ -28,6 +43,9 @@ const Courses = () => {
   const [flippedCard, setFlippedCard] = useState<string | null>(null);
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
+  const [livePrograms, setLivePrograms] = useState<LiveProgram[]>([]);
+  const [liveLoading, setLiveLoading] = useState(true);
+  const [liveError, setLiveError] = useState<string | null>(null);
 
   const categories = [
     { value: "all", label: "All Programmes" },
@@ -38,7 +56,23 @@ const Courses = () => {
 
   useEffect(() => {
     fetchCourses();
+    fetchLivePrograms();
   }, []);
+
+  const fetchLivePrograms = async () => {
+    setLiveLoading(true);
+    setLiveError(null);
+    try {
+      const res = await fetch("https://zegfhrcnebnuroicperu.functions.supabase.co/public-courses");
+      if (!res.ok) throw new Error(`Failed to load programs (${res.status})`);
+      const data = await res.json();
+      setLivePrograms(Array.isArray(data?.items) ? data.items : []);
+    } catch (e: any) {
+      setLiveError(e?.message || "Could not load programs");
+    } finally {
+      setLiveLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (categoryParam) {
@@ -130,6 +164,14 @@ const Courses = () => {
 
                 {categories.map((cat) => (
                   <TabsContent key={cat.value} value={cat.value}>
+                    {(cat.value === "certificate_diploma" || cat.value === "all") && (
+                      <LiveProgramsGrid
+                        loading={liveLoading}
+                        error={liveError}
+                        programs={livePrograms}
+                        onRetry={fetchLivePrograms}
+                      />
+                    )}
                     {filteredCourses.length > 0 ? (
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {filteredCourses.map((course) => (
@@ -274,7 +316,7 @@ const Courses = () => {
                           </div>
                         ))}
                       </div>
-                    ) : (
+                    ) : (cat.value === "certificate_diploma" || cat.value === "all") ? null : (
                       <div className="text-center py-12">
                         <p className="text-muted-foreground">No courses available in this category yet.</p>
                       </div>
