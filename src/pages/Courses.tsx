@@ -42,6 +42,9 @@ const Courses = () => {
   const [flippedCard, setFlippedCard] = useState<string | null>(null);
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
+  const [livePrograms, setLivePrograms] = useState<LiveProgram[]>([]);
+  const [liveLoading, setLiveLoading] = useState(true);
+  const [liveError, setLiveError] = useState<string | null>(null);
 
   const categories = [
     { value: "all", label: "All Programmes" },
@@ -52,7 +55,23 @@ const Courses = () => {
 
   useEffect(() => {
     fetchCourses();
+    fetchLivePrograms();
   }, []);
+
+  const fetchLivePrograms = async () => {
+    setLiveLoading(true);
+    setLiveError(null);
+    try {
+      const res = await fetch("https://zegfhrcnebnuroicperu.functions.supabase.co/public-courses");
+      if (!res.ok) throw new Error(`Failed to load programs (${res.status})`);
+      const data = await res.json();
+      setLivePrograms(Array.isArray(data?.items) ? data.items : []);
+    } catch (e: any) {
+      setLiveError(e?.message || "Could not load programs");
+    } finally {
+      setLiveLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (categoryParam) {
