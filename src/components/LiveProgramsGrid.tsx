@@ -77,7 +77,7 @@ const LiveProgramsGrid = ({ loading, error, programs, onRetry }: Props) => {
         {programs.map((p) => (
           <a
             key={p.id}
-            href={p.details_url}
+            href={`https://lms.odel.uniport.edu.ng/programs/${p.id}`}
             target="_blank"
             rel="noopener noreferrer"
             className="group rounded-xl overflow-hidden border border-border/50 bg-card hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
