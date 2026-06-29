@@ -163,6 +163,14 @@ const Courses = () => {
 
                 {categories.map((cat) => (
                   <TabsContent key={cat.value} value={cat.value}>
+                    {(cat.value === "certificate_diploma" || cat.value === "all") && (
+                      <LiveProgramsGrid
+                        loading={liveLoading}
+                        error={liveError}
+                        programs={livePrograms}
+                        onRetry={fetchLivePrograms}
+                      />
+                    )}
                     {filteredCourses.length > 0 ? (
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {filteredCourses.map((course) => (
