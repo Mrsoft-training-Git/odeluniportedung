@@ -315,7 +315,7 @@ const Courses = () => {
                           </div>
                         ))}
                       </div>
-                    ) : (
+                    ) : (cat.value === "certificate_diploma" || cat.value === "all") ? null : (
                       <div className="text-center py-12">
                         <p className="text-muted-foreground">No courses available in this category yet.</p>
                       </div>
