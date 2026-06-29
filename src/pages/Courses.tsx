@@ -9,6 +9,20 @@ import { QRCodeSVG } from "qrcode.react";
 import { Download, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
+interface LiveProgram {
+  id: string;
+  title: string;
+  short_description: string;
+  category: string;
+  price: number;
+  currency: string;
+  image_url: string | null;
+  students_count: number;
+  is_featured: boolean;
+  apply_url: string;
+  details_url: string;
+}
+
 interface Course {
   id: string;
   title: string;
