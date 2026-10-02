@@ -126,14 +126,6 @@ const HeroSlider = () => {
                     <Button size="sm" className="text-[10px] px-3 py-1.5 h-auto sm:text-sm sm:px-4 sm:py-2 md:text-base md:px-6 md:py-3" asChild>
                       <Link to="/courses">Explore Courses</Link>
                     </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="text-xs sm:text-sm md:text-base sm:size-default md:size-lg bg-white/10 backdrop-blur-sm border-white text-white hover:bg-white hover:text-primary"
-                      asChild>
-                      
-                      
-                    </Button>
                   </div>
                 </div>
               </div>
