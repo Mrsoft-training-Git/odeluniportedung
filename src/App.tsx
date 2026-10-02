@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 import ScrollToTop from "@/components/ScrollToTop";
 import AnnouncementPopup from "@/components/AnnouncementPopup";
+import RouteMetadata from "@/components/RouteMetadata";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Courses from "./pages/Courses";
@@ -31,6 +32,7 @@ const AppContent = () => {
   
   return (
     <>
+      <RouteMetadata />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
