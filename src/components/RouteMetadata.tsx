@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 const SITE_URL = "https://odeluniportedung.lovable.app";
@@ -35,30 +35,45 @@ const RouteMetadata = () => {
   const { pathname } = useLocation();
   const metadata = publicMetadata[pathname];
 
-  if (!metadata) {
-    return (
-      <Helmet>
-        <title>Page Not Found — ODeL UniPort</title>
-        <meta name="description" content="The requested ODeL UniPort page could not be found." />
-        <meta name="robots" content="noindex, nofollow" />
-      </Helmet>
-    );
-  }
+  useEffect(() => {
+    const setMeta = (selector: string, attribute: "name" | "property", key: string, content: string) => {
+      let element = document.head.querySelector<HTMLMetaElement>(selector);
+      if (!element) {
+        element = document.createElement("meta");
+        element.setAttribute(attribute, key);
+        document.head.appendChild(element);
+      }
+      element.content = content;
+    };
 
-  const canonicalUrl = `${SITE_URL}${pathname}`;
+    const existingRobots = document.head.querySelector('meta[name="robots"]');
+    const existingCanonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
 
-  return (
-    <Helmet>
-      <title>{metadata.title}</title>
-      <meta name="description" content={metadata.description} />
-      <link rel="canonical" href={canonicalUrl} />
-      <meta property="og:title" content={metadata.title} />
-      <meta property="og:description" content={metadata.description} />
-      <meta property="og:url" content={canonicalUrl} />
-      <meta name="twitter:title" content={metadata.title} />
-      <meta name="twitter:description" content={metadata.description} />
-    </Helmet>
-  );
+    if (!metadata) {
+      document.title = "Page Not Found — ODeL UniPort";
+      setMeta('meta[name="description"]', "name", "description", "The requested ODeL UniPort page could not be found.");
+      setMeta('meta[name="robots"]', "name", "robots", "noindex, nofollow");
+      existingCanonical?.remove();
+      return;
+    }
+
+    existingRobots?.remove();
+    const canonicalUrl = `${SITE_URL}${pathname}`;
+    document.title = metadata.title;
+    setMeta('meta[name="description"]', "name", "description", metadata.description);
+    setMeta('meta[property="og:title"]', "property", "og:title", metadata.title);
+    setMeta('meta[property="og:description"]', "property", "og:description", metadata.description);
+    setMeta('meta[property="og:url"]', "property", "og:url", canonicalUrl);
+    setMeta('meta[name="twitter:title"]', "name", "twitter:title", metadata.title);
+    setMeta('meta[name="twitter:description"]', "name", "twitter:description", metadata.description);
+
+    const canonical = existingCanonical ?? document.createElement("link");
+    canonical.rel = "canonical";
+    canonical.href = canonicalUrl;
+    if (!existingCanonical) document.head.appendChild(canonical);
+  }, [metadata, pathname]);
+
+  return null;
 };
 
 export default RouteMetadata;
