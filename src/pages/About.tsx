@@ -81,6 +81,7 @@ const About = () => {
         {/* Vision, Mission, Values */}
         <section className="py-10 sm:py-14 md:py-20 bg-muted/30">
           <div className="container px-4 sm:px-6">
+            <h2 className="sr-only">Our Values</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {values.map(value => {
                 const Icon = value.icon;

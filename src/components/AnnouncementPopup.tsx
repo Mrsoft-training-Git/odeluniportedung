@@ -48,6 +48,11 @@ const AnnouncementPopup = () => {
 
   if (!announcement || !isOpen) return null;
 
+  const linkText = announcement.link_text?.trim();
+  const descriptiveLinkText = !linkText || linkText.toLowerCase() === 'learn more'
+    ? `View details about ${announcement.title}`
+    : linkText;
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-in fade-in duration-300">
       <div className="relative bg-white rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden animate-in zoom-in-95 duration-300">
@@ -88,7 +93,7 @@ const AnnouncementPopup = () => {
               {announcement.link_url && (
                 <Button asChild>
                   <a href={announcement.link_url} target="_blank" rel="noopener noreferrer">
-                    {announcement.link_text || 'Learn More'}
+                    {descriptiveLinkText}
                   </a>
                 </Button>
               )}

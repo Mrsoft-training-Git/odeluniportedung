@@ -40,6 +40,7 @@ const News = () => {
         {/* News List */}
         <section className="py-20 bg-background">
           <div className="container">
+            <h2 className="sr-only">Latest News Articles</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {placeholderNews.map((article) => (
                 <Card key={article.id} className="hover:shadow-lg transition-shadow">
