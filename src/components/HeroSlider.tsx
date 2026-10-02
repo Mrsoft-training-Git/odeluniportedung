@@ -73,7 +73,7 @@ const HeroSlider = () => {
         <div className="absolute inset-0 flex items-center">
           <div className="container px-4 sm:px-6">
             <div className="max-w-xl sm:max-w-2xl space-y-2 sm:space-y-4">
-              <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold text-white">Welcome to ODeL UniPort</h2>
+              <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold text-white">Welcome to ODeL UniPort</h1>
               <p className="text-sm sm:text-base md:text-lg text-white/90">Open, Distance and e-Learning Centre</p>
             </div>
           </div>
@@ -85,6 +85,7 @@ const HeroSlider = () => {
 
   return (
     <div className="relative h-[280px] sm:h-[340px] md:h-[420px] lg:h-[500px] overflow-hidden bg-black">
+      <h1 className="sr-only">ODeL UniPort — Open, Distance and e-Learning</h1>
       {slides.map((slide, index) => {
         const isActive = index === currentSlide;
         const isPrevious = index === previousSlide;
@@ -106,12 +107,12 @@ const HeroSlider = () => {
             <div className="absolute inset-0 flex items-center">
               <div className="container px-4 sm:px-6">
                 <div className="max-w-xl sm:max-w-2xl space-y-2 sm:space-y-4 md:space-y-6">
-                  <h1
+                  <h2
                     className={`text-xl sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight transition-all duration-700 ease-out ${isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
                     style={{ transitionDelay: isActive ? "200ms" : "0ms" }}>
                     
                     {slide.title}
-                  </h1>
+                  </h2>
                   <p
                     className={`text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-white/90 transition-all duration-700 ease-out ${isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
                     style={{ transitionDelay: isActive ? "400ms" : "0ms" }}>
@@ -142,28 +143,40 @@ const HeroSlider = () => {
       })}
 
       {/* Navigation Buttons */}
-      <button
+      <Button
+        type="button"
+        variant="ghost"
+        size="icon"
         onClick={prevSlide}
-        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 rounded-full bg-transparent text-white/70 hover:text-white transition-all duration-300 hover:scale-110"
-        disabled={isTransitioning}>
+        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 min-h-11 min-w-11 rounded-full bg-transparent text-white/70 hover:bg-transparent hover:text-white transition-all duration-300 hover:scale-110"
+        disabled={isTransitioning}
+        aria-label="Previous slide">
         
         <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6 md:h-8 md:w-8" />
-      </button>
-      <button
+      </Button>
+      <Button
+        type="button"
+        variant="ghost"
+        size="icon"
         onClick={nextSlide}
-        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 rounded-full bg-transparent text-white/70 hover:text-white transition-all duration-300 hover:scale-110"
-        disabled={isTransitioning}>
+        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 min-h-11 min-w-11 rounded-full bg-transparent text-white/70 hover:bg-transparent hover:text-white transition-all duration-300 hover:scale-110"
+        disabled={isTransitioning}
+        aria-label="Next slide">
         
         <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6 md:h-8 md:w-8" />
-      </button>
+      </Button>
 
       {/* Slide Indicators */}
       <div className="absolute bottom-3 sm:bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 flex space-x-2 sm:space-x-3 z-20">
         {slides.map((_, index) =>
-        <button
+        <Button
           key={index}
+          type="button"
+          variant="ghost"
           onClick={() => goToSlide(index)}
-          className={`h-1.5 sm:h-2 rounded-full transition-all duration-500 ease-out ${index === currentSlide ? "w-6 sm:w-8 md:w-10 bg-white shadow-lg shadow-white/30" : "w-1.5 sm:w-2 bg-white/50 hover:bg-white/70"}`} />
+          aria-label={`Go to slide ${index + 1}`}
+          aria-current={index === currentSlide ? "true" : undefined}
+          className={`h-11 min-w-11 p-0 rounded-full bg-transparent hover:bg-transparent transition-all duration-500 ease-out after:block after:h-2 after:rounded-full ${index === currentSlide ? "after:w-8 md:after:w-10 after:bg-white" : "after:w-2 after:bg-white/50 hover:after:bg-white/70"}`} />
 
         )}
       </div>

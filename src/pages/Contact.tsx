@@ -64,6 +64,7 @@ const Contact = () => {
         {/* Contact Section */}
         <section className="py-20 bg-background">
           <div className="container">
+            <h2 className="sr-only">Contact Information and Enquiry Form</h2>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {/* Contact Info Cards */}
               <div className="space-y-6">

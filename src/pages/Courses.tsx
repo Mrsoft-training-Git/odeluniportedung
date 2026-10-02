@@ -148,6 +148,7 @@ const Courses = () => {
         {/* Courses Section */}
         <section className="py-20 bg-background">
           <div className="container">
+            <h2 className="sr-only">Available Programmes</h2>
             {loading ? (
               <div className="flex justify-center items-center py-20">
                 <Loader2 className="h-8 w-8 animate-spin text-primary" />
